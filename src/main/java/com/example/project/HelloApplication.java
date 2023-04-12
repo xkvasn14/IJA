@@ -1,15 +1,13 @@
 package com.example.project;
 
 import common.CommonMaze;
-import game.Field;
-import game.MazeConfigure;
-import game.PathField;
-import game.WallField;
+import game.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import org.kordamp.bootstrapfx.BootstrapFX;
@@ -37,16 +35,33 @@ public class HelloApplication extends Application {
             for (int j = 0; j < cols; j++) {
                 // Create a new Rectangle to represent the field
                 Rectangle rect = new Rectangle(FIELD_SIZE, FIELD_SIZE);
+                Circle circle = new Circle(FIELD_SIZE/2);
 
                 // Set the color of the rectangle based on the type of field
                 if (maze.getField(i,j) instanceof WallField) {
                     rect.setFill(Color.GREY);
+                    gridPane.add(rect, j, i);
                 } else if (maze.getField(i,j) instanceof PathField) {
                     rect.setFill(Color.WHITE);
+                    gridPane.add(rect, j, i);
+                    if(maze.getField(i,j).get() instanceof PacmanObject){
+                        circle.setFill(Color.RED);
+                        gridPane.add(circle, j, i);
+                    } else if(maze.getField(i,j).get() instanceof GhostObject){
+                        circle.setFill(Color.BLUE);
+                        gridPane.add(circle, j, i);
+                    } else if(maze.getField(i,j).get() instanceof KeyObject){
+                        circle.setFill(Color.YELLOW);
+                        gridPane.add(circle, j, i);
+                    } else if(maze.getField(i,j).get() instanceof TargetObject){
+                        circle.setFill(Color.GREEN);
+                        gridPane.add(circle, j, i);
+                    }
                 }
 
+
                 // Add the rectangle to the GridPane at the appropriate row and column
-                gridPane.add(rect, j, i);
+
             }
         }
 
@@ -72,8 +87,8 @@ public class HelloApplication extends Application {
         MazeConfigure mazeConfigure = new MazeConfigure();
         mazeConfigure.startReading(4,3);
         mazeConfigure.processLine("..G");
-        mazeConfigure.processLine(".X.");
-        mazeConfigure.processLine(".X.");
+        mazeConfigure.processLine(".XK");
+        mazeConfigure.processLine(".XT");
         mazeConfigure.processLine(".S.");
         mazeConfigure.stopReading();
         maze = mazeConfigure.createMaze();
