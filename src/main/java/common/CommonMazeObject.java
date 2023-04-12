@@ -1,9 +1,13 @@
 package common;
 
 public interface CommonMazeObject {
-    boolean canMove(CommonField.Direction var1);
+    default boolean canMove(CommonField.Direction var1){
+        return false;
+    }
 
-    boolean move(CommonField.Direction var1);
+    default boolean move(CommonField.Direction var1){
+        return false;
+    }
 
     default boolean isPacman() {
         return false;
@@ -11,5 +15,7 @@ public interface CommonMazeObject {
 
     CommonField getField();
 
-    int getLives();
+    default int getLives() {
+        return 0;
+    }
 }
