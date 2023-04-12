@@ -16,10 +16,7 @@ public class PacmanObject implements CommonMazeObject {
     }
     @Override
     public boolean canMove(CommonField.Direction dir) {
-        if(this.field.nextField(dir).getClass() == WallField.class){
-            return false;
-        }
-        return true;
+        return this.field.nextField(dir).getClass() != WallField.class;
     }
 
     @Override
@@ -43,7 +40,7 @@ public class PacmanObject implements CommonMazeObject {
 
     @Override
     public CommonField getField() {
-        return null;
+        return this.field;
     }
 
     @Override

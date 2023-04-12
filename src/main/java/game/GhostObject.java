@@ -12,10 +12,7 @@ public class GhostObject implements CommonMazeObject {
     }
     @Override
     public boolean canMove(CommonField.Direction dir) {
-        if(this.field.nextField(dir).getClass() == WallField.class){
-            return false;
-        }
-        return true;
+        return this.field.nextField(dir).getClass() != WallField.class;
     }
 
     @Override
@@ -41,8 +38,4 @@ public class GhostObject implements CommonMazeObject {
         return this.field;
     }
 
-    @Override
-    public int getLives() {
-        return 0;
-    }
 }
