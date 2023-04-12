@@ -27,6 +27,10 @@ public class PacmanObject implements CommonMazeObject {
             this.field = this.field.nextField(dir);
             this.field.put(this);
             this.field.notifyObservers();
+            CommonMazeObject nextObject = this.field.get();
+            if(nextObject instanceof GhostObject){
+                this.lives -= 1;
+            }
 
             return true;
         }

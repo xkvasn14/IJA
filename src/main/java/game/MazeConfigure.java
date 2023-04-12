@@ -65,9 +65,31 @@ public class MazeConfigure extends Object {
                     GhostObject ghost = new GhostObject(field);
                     //field.put(ghost);
                     ghosts.add(ghost);
-
-
                     //maze.getField(row, col).put(new GhostObject(maze.getField(row, col)));
+                }
+                // Add KeyObject
+                if(this.mazeString[row][col].equals("K")){
+                    Field field = new PathField(row, col);
+                    field.setMaze(maze);
+                    //maze.setField(field, row, col);
+                    //this.maze[row][col] = field;
+                    fields[row][col] = field;
+                    // put ghost on field
+                    KeyObject key = new KeyObject(field);
+                    //field.put(ghost);
+                    ghosts.add(key);
+                }
+                // Add TargetObject
+                if(this.mazeString[row][col].equals("T")){
+                    Field field = new PathField(row, col);
+                    field.setMaze(maze);
+                    //maze.setField(field, row, col);
+                    //this.maze[row][col] = field;
+                    fields[row][col] = field;
+                    // put ghost on field
+                    TargetObject target = new TargetObject(field);
+                    //field.put(ghost);
+                    ghosts.add(target);
                 }
             }
         }
