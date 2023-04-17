@@ -34,13 +34,21 @@ public class HelloApplication extends Application {
     int rows = 4+2;
     int cols = 3+2;
     private static CommonMaze maze;
+    
+    Image heart = new Image("file:data/img/heart.png");
+    Image wall = new Image("file:data/img/wall.png");
+    Image dirt = new Image("file:data/img/dirt.png");
+    Image pacman = new Image("file:data/img/pacman-pixel.png");
+    Image ghost = new Image("file:data/img/ghost-green.png");
+    Image key = new Image("file:data/img/key2.png");
+    Image trapdoor = new Image("file:data/img/trapdoor.png");
+
 
     @Override
     public void start(Stage primaryStage) throws IOException {
         //FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         // Create a new GridPane
         GridPane gridPane = new GridPane();
-        Image key = new Image("file:data/key2.png");
 
         // Loop through the 2D array of fields
         for (int i = 0; i < rows; i++) {
@@ -59,19 +67,16 @@ public class HelloApplication extends Application {
                     rect.setFill(Color.WHITE);
                     gridPane.add(rect, j, i);
                     if(maze.getField(i,j).get() instanceof PacmanObject){
-                        Image pacman = new Image("file:data/pacman-pixel.png");
                         circle.setFill(new ImagePattern(pacman));
                         gridPane.add(circle, j, i);
                     } else if(maze.getField(i,j).get() instanceof GhostObject){
-                        Image ghost = new Image("file:data/ghost-green.png");
                         circle.setFill(new ImagePattern(ghost));
                         gridPane.add(circle, j, i);
                     } else if(maze.getField(i,j).get() instanceof KeyObject){
                         circle.setFill(new ImagePattern(key));
                         gridPane.add(circle, j, i);
                     } else if(maze.getField(i,j).get() instanceof TargetObject){
-                        Image pacmanRightImage = new Image("file:data/trapdoor.png");
-                        rect2.setFill(new ImagePattern(pacmanRightImage));
+                        rect2.setFill(new ImagePattern(trapdoor));
                         gridPane.add(rect2, j, i);
                     }
                 }
@@ -85,7 +90,7 @@ public class HelloApplication extends Application {
         ImageView keyView = new ImageView(key);
         keyView.setFitHeight(20);
         keyView.setFitWidth(20);
-        ImageView heartView = new ImageView(new Image("file:data/heart.png"));
+        ImageView heartView = new ImageView(heart);
         heartView.setFitHeight(20);
         heartView.setFitWidth(20);
         // Create Menu bar
