@@ -15,6 +15,8 @@ public class MazeConfigure extends Object {
     Field[][] fields;
     String[][] mazeString;
 
+    CommonMazeObject pacman;
+
     List<CommonMazeObject> ghosts = new ArrayList<>();
 
     List<CommonMazeObject> keys = new ArrayList<>();
@@ -27,7 +29,7 @@ public class MazeConfigure extends Object {
         if(readRow < rows)
             return null;
 
-        this.maze = new MazeImplementation(rows, cols, fields, ghosts, keys);
+        this.maze = new MazeImplementation(rows, cols, fields, ghosts, keys, pacman);
 
         // first wall
         for(int row = 0; row < rows +2; row++){
@@ -55,6 +57,7 @@ public class MazeConfigure extends Object {
                     // put pacman on start field
                     //maze.getField(row, col).put(new PacmanObject(maze.getField(row, col)));
                     CommonMazeObject pacman = new PacmanObject(field);
+                    this.pacman = pacman;
                     //TODO: make sure field.put is not adding pacman to the field twice
                     field.put(pacman);
                 }
