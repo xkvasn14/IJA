@@ -6,6 +6,7 @@ import common.CommonMazeObject;
 import game.*;
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -33,6 +34,9 @@ public class HelloApplication extends Application {
     int cols = 3+2;
     private static CommonMaze maze;
     
+    Image play = new Image("file:data/img/play.png");
+    Image arrows = new Image("file:data/img/arrows.png");
+    Image steps = new Image("file:data/img/steps.png");
     Image heart = new Image("file:data/img/heart.png");
     Image wall = new Image("file:data/img/wall.png");
     Image dirt = new Image("file:data/img/dirt.png");
@@ -80,23 +84,23 @@ public class HelloApplication extends Application {
                         gridPane.add(rect2, j, i);
                     }
                 }
-
-
                 // Add the rectangle to the GridPane at the appropriate row and column
 
             }
         }
 
-        ImageView keyView = new ImageView(key);
-        keyView.setFitHeight(20);
-        keyView.setFitWidth(20);
-        ImageView heartView = new ImageView(heart);
-        heartView.setFitHeight(20);
-        heartView.setFitWidth(20);
-        // Create Menu bar
-        MenuBar menuBar = new MenuBar(new Menu("K", keyView), new Menu("3",heartView), new Menu("G"));
-        menuBar.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
 
+        // Menu views
+        ImageView arrowsView = setImageView(arrows);
+        ImageView keyView = setImageView(key);
+        ImageView heartView = setImageView(heart);
+        ImageView ghostView = setImageView(ghost);
+        ImageView stepsView = setImageView(steps);
+
+        // Create Menu bar
+        MenuBar menuBar = new MenuBar(new Menu("", arrowsView), new Menu("1", keyView), new Menu("3", heartView),
+                new Menu("1", ghostView), new Menu("5", stepsView));
+        menuBar.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
 
         VBox vBox = new VBox(menuBar, gridPane);
 
@@ -104,43 +108,82 @@ public class HelloApplication extends Application {
         Scene scene = new Scene(vBox);
 
 
-
         //////////////
         // TODO Event handlers-example
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                systemWindow.info("Info", "Info");
-                systemWindow.warning("Warning", "Warning");
-                systemWindow.error("Error", "Error");
-                systemWindow.success("Success", "Success");
-            }
-              /*  switch (event.getCode()) {
-                    case UP:
+
+                switch (event.getCode()) {
+                    case UP, W -> {
                         maze.pacman().move(CommonField.Direction.U);
-                        break;
-                    case DOWN:
+                        try {
+                            start(primaryStage);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    case DOWN, S -> {
                         maze.pacman().move(CommonField.Direction.D);
-                        break;
-                    case LEFT:
+                        try {
+                            start(primaryStage);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    case LEFT, A -> {
                         maze.pacman().move(CommonField.Direction.L);
-                        break;
-                    case RIGHT:
+                        try {
+                            start(primaryStage);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    case RIGHT, D -> {
                         maze.pacman().move(CommonField.Direction.R);
-                        break;
+                        try {
+                            start(primaryStage);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
                 }
             }*/
         });
-
-
-
-
-
-
-
-
         //////////////
 
+
+        scene.setOnMousePressed(event -> {
+            Node clickedNode = event.getPickResult().getIntersectedNode();
+            Integer colIndex = GridPane.getColumnIndex(clickedNode);
+            Integer rowIndex = GridPane.getRowIndex(clickedNode);
+            System.out.println(colIndex + ":" + rowIndex);
+
+            PathField currentField = (PathField) maze.pacman().getField();
+            while (!(colIndex == currentField.getCol() && rowIndex == currentField.getRow())) {
+                /* if (maze.getField(currentField.getCol(), currentField.getRow()) instanceof WallField) {
+                    break;
+                } */ // todo search algoritmus
+                if (colIndex > currentField.getCol()) {
+                    maze.pacman().move(CommonField.Direction.R);
+                }
+                else if (colIndex < currentField.getCol()) {
+                    maze.pacman().move(CommonField.Direction.L);
+                }
+                else if (rowIndex > currentField.getRow()) {
+                    maze.pacman().move(CommonField.Direction.D);
+                }
+                else if (rowIndex < currentField.getRow()) {
+                    maze.pacman().move(CommonField.Direction.U);
+                }
+                currentField = (PathField) maze.pacman().getField();
+                try {
+                    start(primaryStage);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
 
         // Set the title of the window
         primaryStage.setTitle("Map Display");
@@ -150,12 +193,14 @@ public class HelloApplication extends Application {
 
         // Show the window
         primaryStage.show();
-
-
     }
 
-
-
+    public ImageView setImageView(Image img) {
+        ImageView image = new ImageView(img);
+        image.setFitHeight(20);
+        image.setFitWidth(20);
+        return image;
+    }
 
     public static void main(String[] args) {
         // create a map

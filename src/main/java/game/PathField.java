@@ -10,7 +10,7 @@ public class PathField extends Field implements CommonField {
     int row;
     int col;
     List<CommonMazeObject> entity = super.entity;
-    CommonMaze maze;
+    CommonMaze maze = super.maze;
 
     public PathField(int row, int col) {
         this.row = row;
@@ -90,4 +90,21 @@ public class PathField extends Field implements CommonField {
     public void setMaze(CommonMaze maze) {
         this.maze = maze;
     }
+
+    @Override
+    public CommonMaze getMaze() {
+        return this.maze;
+    }
+
+    public int getCol() {
+        return this.col;
+    }
+
+    public int getRow() {
+        return this.row;
+    }
+
 }
+
+
+

@@ -56,10 +56,11 @@ public class MazeConfigure extends Object {
                     fields[row][col] = field;
                     // put pacman on start field
                     //maze.getField(row, col).put(new PacmanObject(maze.getField(row, col)));
-                    CommonMazeObject pacman = new PacmanObject(field);
-                    this.pacman = pacman;
+                    this.pacman = new PacmanObject(field);
+
+                    this.maze.setPacman(this.pacman);
                     //TODO: make sure field.put is not adding pacman to the field twice
-                    field.put(pacman);
+                    //field.put(pacman);
                 }
                 if(this.mazeString[row][col].equals("G")){
                     Field field = new PathField(row, col);
@@ -93,7 +94,7 @@ public class MazeConfigure extends Object {
                     fields[row][col] = field;
                     // put target on field
                     TargetObject target = new TargetObject(field);
-                    field.put(target);
+                    //field.put(target);
                 }
             }
         }
