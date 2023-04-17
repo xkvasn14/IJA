@@ -2,6 +2,7 @@ package window;
 
 import common.CommonField;
 import common.CommonMaze;
+import common.CommonMazeObject;
 import game.*;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -109,7 +110,12 @@ public class HelloApplication extends Application {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                switch (event.getCode()) {
+                systemWindow.info("Info", "Info");
+                systemWindow.warning("Warning", "Warning");
+                systemWindow.error("Error", "Error");
+                systemWindow.success("Success", "Success");
+            }
+              /*  switch (event.getCode()) {
                     case UP:
                         maze.pacman().move(CommonField.Direction.U);
                         break;
@@ -123,7 +129,7 @@ public class HelloApplication extends Application {
                         maze.pacman().move(CommonField.Direction.R);
                         break;
                 }
-            }
+            }*/
         });
 
 
