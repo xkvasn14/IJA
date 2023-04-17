@@ -4,6 +4,6 @@ module com.example.project {
 
     requires org.kordamp.bootstrapfx.core;
 
-    opens com.example.project to javafx.fxml;
-    exports com.example.project;
+    opens window to javafx.fxml;
+    exports window;
 }

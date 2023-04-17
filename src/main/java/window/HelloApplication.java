@@ -1,16 +1,13 @@
-package com.example.project;
+package window;
 
 import common.CommonField;
 import common.CommonMaze;
 import game.*;
 import javafx.application.Application;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.skin.TextInputControlSkin;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -40,7 +37,7 @@ public class HelloApplication extends Application {
     Image dirt = new Image("file:data/img/dirt.png");
     Image pacman = new Image("file:data/img/pacman-pixel.png");
     Image ghost = new Image("file:data/img/ghost-green.png");
-    Image key = new Image("file:data/img/key2.png");
+    Image key = new Image("file:data/img/key.png");
     Image trapdoor = new Image("file:data/img/trapdoor.png");
 
 
@@ -62,9 +59,11 @@ public class HelloApplication extends Application {
                 // Set the color of the rectangle based on the type of field
                 if (maze.getField(i,j) instanceof WallField) {
                     rect.setFill(Color.GREY);
+                    rect.setFill(new ImagePattern(wall));
                     gridPane.add(rect, j, i);
                 } else if (maze.getField(i,j) instanceof PathField) {
                     rect.setFill(Color.WHITE);
+                    rect.setFill(new ImagePattern(dirt));
                     gridPane.add(rect, j, i);
                     if(maze.getField(i,j).get() instanceof PacmanObject){
                         circle.setFill(new ImagePattern(pacman));
