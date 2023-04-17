@@ -14,4 +14,6 @@ public interface CommonMaze {
     List<CommonMazeObject> keys();
     
     CommonMazeObject pacman();
+
+    void setPacman(CommonMazeObject pacman);
 }
