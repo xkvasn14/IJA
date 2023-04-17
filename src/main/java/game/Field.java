@@ -73,5 +73,7 @@ public class Field extends AbstractObservableField implements CommonField {
         this.maze = maze;
     }
 
-    public CommonMaze getMaze() { return this.maze; }
+    public CommonMaze getMaze() {
+        return this.maze;
+    }
 }

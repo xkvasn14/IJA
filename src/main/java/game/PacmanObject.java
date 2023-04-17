@@ -30,18 +30,18 @@ public class PacmanObject implements CommonMazeObject {
             CommonMazeObject nextObject = this.field.get();
             if(nextObject instanceof GhostObject){
                 this.lives -= 1;
-                if(this.lives == 0){
+                if (this.lives == 0){
                     // TODO : Game over
                 }
             }
             if(nextObject instanceof TargetObject){
-                if(field.getMaze().keys().isEmpty())
+                if (this.field.getMaze().keys().isEmpty())
                 {
                     // TODO : Game win
                 }
             }
-            if(nextObject instanceof KeyObject){
-                field.getMaze().keys().remove(nextObject);
+            if (nextObject instanceof KeyObject){
+                this.field.getMaze().keys().remove(nextObject);
                 this.field.remove(nextObject);
                 this.field.notifyObservers();
             }
