@@ -13,14 +13,16 @@ public class MazeImplementation implements CommonMaze {
     List<CommonMazeObject> ghosts;
 
     List<CommonMazeObject> keys;
+    CommonMazeObject pacman;
     int rows;
     int cols;
-    public MazeImplementation(int rows, int cols, CommonField[][] fields, List<CommonMazeObject> ghosts, List<CommonMazeObject> keys) {
+    public MazeImplementation(int rows, int cols, CommonField[][] fields, List<CommonMazeObject> ghosts, List<CommonMazeObject> keys, CommonMazeObject pacman) {
         this.fields = fields;
         this.rows = rows + 2;
         this.cols = cols + 2;
         this.ghosts = ghosts;
         this.keys = keys;
+        this.pacman = pacman;
     }
 
     @Override
@@ -49,4 +51,7 @@ public class MazeImplementation implements CommonMaze {
     public void setField(CommonField field, int row, int col) {
         this.fields[row][col] = field;
     }
+
+    @Override
+    public CommonMazeObject pacman() { return this.pacman; }
 }

@@ -1,14 +1,19 @@
 package com.example.project;
 
+import common.CommonField;
 import common.CommonMaze;
 import game.*;
 import javafx.application.Application;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.skin.TextInputControlSkin;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -93,6 +98,40 @@ public class HelloApplication extends Application {
         // Create a new Scene with the GridPane as the root node
         Scene scene = new Scene(vBox);
 
+
+
+        //////////////
+        // TODO Event handlers-example
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                switch (event.getCode()) {
+                    case UP:
+                        maze.pacman().move(CommonField.Direction.U);
+                        break;
+                    case DOWN:
+                        maze.pacman().move(CommonField.Direction.D);
+                        break;
+                    case LEFT:
+                        maze.pacman().move(CommonField.Direction.L);
+                        break;
+                    case RIGHT:
+                        maze.pacman().move(CommonField.Direction.R);
+                        break;
+                }
+            }
+        });
+
+
+
+
+
+
+
+
+        //////////////
+
+
         // Set the title of the window
         primaryStage.setTitle("Map Display");
 
@@ -104,6 +143,7 @@ public class HelloApplication extends Application {
 
 
     }
+
 
 
 
