@@ -16,6 +16,8 @@ public class MazeConfigure extends Object {
     String[][] mazeString;
 
     List<CommonMazeObject> ghosts = new ArrayList<>();
+
+    List<CommonMazeObject> keys = new ArrayList<>();
     public MazeConfigure() {
     }
 
@@ -25,7 +27,7 @@ public class MazeConfigure extends Object {
         if(readRow < rows)
             return null;
 
-        this.maze = new MazeImplementation(rows, cols, fields, ghosts);
+        this.maze = new MazeImplementation(rows, cols, fields, ghosts, keys);
 
         // first wall
         for(int row = 0; row < rows +2; row++){
@@ -53,6 +55,7 @@ public class MazeConfigure extends Object {
                     // put pacman on start field
                     //maze.getField(row, col).put(new PacmanObject(maze.getField(row, col)));
                     CommonMazeObject pacman = new PacmanObject(field);
+                    //TODO: make sure field.put is not adding pacman to the field twice
                     field.put(pacman);
                 }
                 if(this.mazeString[row][col].equals("G")){
@@ -74,10 +77,9 @@ public class MazeConfigure extends Object {
                     //maze.setField(field, row, col);
                     //this.maze[row][col] = field;
                     fields[row][col] = field;
-                    // put ghost on field
+                    // put keys on field
                     KeyObject key = new KeyObject(field);
-                    //field.put(ghost);
-                    ghosts.add(key);
+                    keys.add(key);
                 }
                 // Add TargetObject
                 if(this.mazeString[row][col].equals("T")){
@@ -86,10 +88,9 @@ public class MazeConfigure extends Object {
                     //maze.setField(field, row, col);
                     //this.maze[row][col] = field;
                     fields[row][col] = field;
-                    // put ghost on field
+                    // put target on field
                     TargetObject target = new TargetObject(field);
-                    //field.put(ghost);
-                    ghosts.add(target);
+                    field.put(target);
                 }
             }
         }

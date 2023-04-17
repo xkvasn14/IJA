@@ -5,8 +5,14 @@ import game.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -29,6 +35,7 @@ public class HelloApplication extends Application {
         //FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         // Create a new GridPane
         GridPane gridPane = new GridPane();
+        Image key = new Image("file:data/key2.png");
 
         // Loop through the 2D array of fields
         for (int i = 0; i < rows; i++) {
@@ -36,6 +43,8 @@ public class HelloApplication extends Application {
                 // Create a new Rectangle to represent the field
                 Rectangle rect = new Rectangle(FIELD_SIZE, FIELD_SIZE);
                 Circle circle = new Circle(FIELD_SIZE/2);
+                Rectangle rect2 = new Rectangle(FIELD_SIZE, FIELD_SIZE);
+
 
                 // Set the color of the rectangle based on the type of field
                 if (maze.getField(i,j) instanceof WallField) {
@@ -45,17 +54,20 @@ public class HelloApplication extends Application {
                     rect.setFill(Color.WHITE);
                     gridPane.add(rect, j, i);
                     if(maze.getField(i,j).get() instanceof PacmanObject){
-                        circle.setFill(Color.RED);
+                        Image pacman = new Image("file:data/pacman-pixel.png");
+                        circle.setFill(new ImagePattern(pacman));
                         gridPane.add(circle, j, i);
                     } else if(maze.getField(i,j).get() instanceof GhostObject){
-                        circle.setFill(Color.BLUE);
+                        Image ghost = new Image("file:data/ghost-green.png");
+                        circle.setFill(new ImagePattern(ghost));
                         gridPane.add(circle, j, i);
                     } else if(maze.getField(i,j).get() instanceof KeyObject){
-                        circle.setFill(Color.YELLOW);
+                        circle.setFill(new ImagePattern(key));
                         gridPane.add(circle, j, i);
                     } else if(maze.getField(i,j).get() instanceof TargetObject){
-                        circle.setFill(Color.GREEN);
-                        gridPane.add(circle, j, i);
+                        Image pacmanRightImage = new Image("file:data/trapdoor.png");
+                        rect2.setFill(new ImagePattern(pacmanRightImage));
+                        gridPane.add(rect2, j, i);
                     }
                 }
 
@@ -65,8 +77,21 @@ public class HelloApplication extends Application {
             }
         }
 
+        ImageView keyView = new ImageView(key);
+        keyView.setFitHeight(20);
+        keyView.setFitWidth(20);
+        ImageView heartView = new ImageView(new Image("file:data/heart.png"));
+        heartView.setFitHeight(20);
+        heartView.setFitWidth(20);
+        // Create Menu bar
+        MenuBar menuBar = new MenuBar(new Menu("K", keyView), new Menu("3",heartView), new Menu("G"));
+        menuBar.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+
+
+        VBox vBox = new VBox(menuBar, gridPane);
+
         // Create a new Scene with the GridPane as the root node
-        Scene scene = new Scene(gridPane);
+        Scene scene = new Scene(vBox);
 
         // Set the title of the window
         primaryStage.setTitle("Map Display");
