@@ -3,11 +3,14 @@ package game;
 import common.CommonMaze;
 import common.CommonMazeObject;
 import common.CommonField;
+import pathfinding.Network;
+import pathfinding.Node;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class MazeImplementation implements CommonMaze {
+public class MazeImplementation extends Network implements CommonMaze  {
 
     CommonField[][] fields;
     List<CommonMazeObject> ghosts;
@@ -61,5 +64,19 @@ public class MazeImplementation implements CommonMaze {
     @Override
     public CommonMazeObject pacman() {
         return this.pacman;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Override
+    public Iterable<Node> getNodes() {
+        ArrayList<Node> nodes = new ArrayList<>();
+        // todo for
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < this.cols; j++) {
+                nodes.add((Node)this.fields[i][j]);
+            }
+        }
+        return nodes;
     }
 }
