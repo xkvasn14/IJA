@@ -176,34 +176,24 @@ public class HelloApplication extends Application {
 
            // Pathfinding path = new Pathfinding();
 
-            //while (!(colIndex == currentField.getCol() && rowIndex == currentField.getRow())) {
-                /* if (maze.getField(currentField.getCol(), currentField.getRow()) instanceof WallField) {
-                    break;
-                } // todo search algoritmus
-                if (colIndex > currentField.getCol()) {
-                    maze.pacman().move(CommonField.Direction.R);
-                }
-                else if (colIndex < currentField.getCol()) {
-                    maze.pacman().move(CommonField.Direction.L);
-                }
-                else if (rowIndex > currentField.getRow()) {
-                    maze.pacman().move(CommonField.Direction.D);
-                }
-                else if (rowIndex < currentField.getRow()) {
-                    maze.pacman().move(CommonField.Direction.U);
-                }
-                currentField = (PathField) maze.pacman().getField();
-
+            int counter = 0;
+            while (!(colIndex == currentField.getCol() && rowIndex == currentField.getRow())) {
 
                 moveInCol(currentField, colIndex);
                 moveInRow(currentField, rowIndex);
+                currentField = (PathField) maze.pacman().getField();
+                counter++;
+
+                if (counter == 20) {
+                    break;
+                }
 
                 try {
                     start(primaryStage);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-            } */
+            }
         });
 
         // Set the title of the window
@@ -224,29 +214,28 @@ public class HelloApplication extends Application {
     }
 
     public void moveInCol(PathField currentField, int end) {
-
         while (!(end == currentField.getCol())) {
-            //PathField previousField = (PathField) maze.pacman().getField();
+            boolean left = false;
+            boolean right = false;
             if (end > currentField.getCol()) {
-               maze.pacman().move(CommonField.Direction.R);
+                right = maze.pacman().move(CommonField.Direction.R);
             } else if (end < currentField.getCol()) {
-                maze.pacman().move(CommonField.Direction.L);
+                left = maze.pacman().move(CommonField.Direction.L);
             }
 
             currentField = (PathField) maze.pacman().getField();
 
-            if (maze.getField(currentField.getCol(), currentField.getRow()) instanceof WallField) {
-                //currentField = previousField;
+            if (!right && !left) {
                 break;
             }
         }
-
     }
 
     public void moveInRow(PathField currentField, int end) {
         while (!(end == currentField.getRow())) {
             boolean up = false;
             boolean down = false;
+
             if (end > currentField.getRow()) {
                 down = maze.pacman().move(CommonField.Direction.D);
             } else if (end < currentField.getRow()) {
@@ -255,15 +244,10 @@ public class HelloApplication extends Application {
 
             currentField = (PathField) maze.pacman().getField();
 
-            /*if (maze.getField(currentField.getCol(), currentField.getRow()) instanceof WallField) {
-                //currentField = previousField;
-                break;
-            } */
             if (!up && !down) {
                 break;
             }
         }
-
     }
 
     public static void main(String[] args) throws IOException {
