@@ -1,0 +1,22 @@
+21 21
+XXXXXXXXXXKXXXXXXXXXX
+XXXXXXXXX.G.XXXXXXXXX
+XXXXXXXX.....XXXXXXXX
+XXXXXXX.......XXXXXXX
+XXXXXX.........XXXXXX
+XXXXX...........XXXXX
+XXXX.............XXXX
+XXX...............XXX
+XX.................XX
+X...................X
+KG........S........GK
+X...................X
+XX.................XX
+XXX...............XXX
+XXXX.............XXXX
+XXXXX...........XXXXX
+XXXXXX.........XXXXXX
+XXXXXXX.......XXXXXXX
+XXXXXXXX.....XXXXXXXX
+XXXXXXXXX.G.XXXXXXXXX
+XXXXXXXXXXTXXXXXXXXXX

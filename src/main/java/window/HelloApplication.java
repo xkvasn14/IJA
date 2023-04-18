@@ -21,6 +21,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import org.kordamp.bootstrapfx.BootstrapFX;
+import util.MapReader;
 
 import java.io.IOException;
 
@@ -29,9 +30,9 @@ import java.io.IOException;
 public class HelloApplication extends Application {
 
     // Define the size of each field on the grid
-    private static final int FIELD_SIZE = 50;
-    int rows = 4+2;
-    int cols = 3+2;
+    private static final int FIELD_SIZE = 30;
+    int rows=23+2;
+    int cols=23+2;
     private static CommonMaze maze;
     
     Image play = new Image("file:data/img/play.png");
@@ -148,7 +149,7 @@ public class HelloApplication extends Application {
                         }
                     }
                 }
-            }*/
+            }
         });
         //////////////
 
@@ -202,16 +203,24 @@ public class HelloApplication extends Application {
         return image;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // create a map
         MazeConfigure mazeConfigure = new MazeConfigure();
-        mazeConfigure.startReading(4,3);
+       /* mazeConfigure.startReading(4,3);
         mazeConfigure.processLine("..G");
         mazeConfigure.processLine(".XK");
         mazeConfigure.processLine(".XT");
         mazeConfigure.processLine(".S.");
         mazeConfigure.stopReading();
-        maze = mazeConfigure.createMaze();
-        launch();
+        maze = mazeConfigure.createMaze();*/
+
+        try {
+            MapReader mapReader = new MapReader();
+            maze = mapReader.readMap("C:\\Users\\jarek\\Desktop\\IJA\\projekt\\IJA\\data\\maps\\map3.txt");
+            launch();
+        }
+        catch (IOException e) {
+            SystemWindow.error("Error", e.getMessage());
+        }
     }
 }
