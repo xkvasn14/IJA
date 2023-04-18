@@ -216,7 +216,7 @@ public class HelloApplication extends Application {
 
         try {
             MapReader mapReader = new MapReader();
-            maze = mapReader.readMap("C:\\Users\\jarek\\Desktop\\IJA\\projekt\\IJA\\data\\maps\\map3.txt");
+            maze = mapReader.readMap("data\\maps\\map3.txt");
             launch();
         }
         catch (IOException e) {
