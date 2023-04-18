@@ -8,8 +8,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 public class Menu extends Application {
@@ -21,7 +23,7 @@ public class Menu extends Application {
     public Button button_map1;
     public Button button_map3;
     public Button button_play;
-    public TextField textBox_path_play;
+    public TextField textBox_path_view_record;
     public Button button_choose_play;
     public CheckBox checkBox_reverse;
 
@@ -44,24 +46,51 @@ public class Menu extends Application {
     public void checkBox_reverse_click(ActionEvent actionEvent) {
     }
 
-    public void button_choose_play_click(ActionEvent actionEvent) {
-    }
-
-    public void button_play_click(ActionEvent actionEvent) {
-    }
-
-    public void button_map1_click(ActionEvent actionEvent) {
-    }
-
-    public void button_map2_click(ActionEvent actionEvent) {
-    }
-
-    public void button_map3_click(ActionEvent actionEvent) {
+    public void button_choose_view_record_click(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Play File");
+        File file = fileChooser.showOpenDialog(null);
+        if(file != null) {
+            textBox_path_view_record.setText(file.getAbsolutePath());
+        }
     }
 
     public void button_choose_map_click(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Map File");
+        File file = fileChooser.showOpenDialog(null);
+        if(file != null) {
+            textBox_path_map.setText(file.getAbsolutePath());
+        }
     }
 
-    public void button_go_click(ActionEvent actionEvent) {
+    public void button_play_click(ActionEvent actionEvent) {
+        // read from textBox_path_map
+        // SystemWindow open info
+        SystemWindow.error("Error", "Error");
+        String path = textBox_path_map.getText();
+
+    }
+
+    public void button_map1_click(ActionEvent actionEvent) {
+        File file = new File("data/map/map1.txt");
+        textBox_path_map.setText(file.getAbsolutePath());
+        button_play_click(actionEvent);
+    }
+
+    public void button_map2_click(ActionEvent actionEvent) {
+        File file = new File("data/map/map2.txt");
+        textBox_path_map.setText(file.getAbsolutePath());
+        button_play_click(actionEvent);
+    }
+
+    public void button_map3_click(ActionEvent actionEvent) {
+        File file = new File("data/map/map3.txt");
+        textBox_path_map.setText(file.getAbsolutePath());
+        button_play_click(actionEvent);
+    }
+
+    public void button_view_record_click(ActionEvent actionEvent) {
+        String path = textBox_path_view_record.getText();
     }
 }

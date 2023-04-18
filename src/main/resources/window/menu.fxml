@@ -6,43 +6,43 @@
 
 <AnchorPane prefHeight="304.0" prefWidth="597.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="window.Menu">
    <children>
-      <Button fx:id="button_go" layoutX="25.0" layoutY="23.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="119.0" style="-fx-background-color: #D3D3D3; -fx-border-color: #C0C0C0;" text="GO" textAlignment="CENTER" onAction="#button_go_click">
+      <Button fx:id="button_go" layoutX="25.0" layoutY="23.0" mnemonicParsing="false" onAction="#button_play_click" prefHeight="72.0" prefWidth="119.0" style="-fx-background-color: #D3D3D3; -fx-border-color: #C0C0C0;" text="PLAY" textAlignment="CENTER">
          <font>
-            <Font name="Papyrus" size="26.0" />
+            <Font name="Papyrus" size="25.0" />
          </font></Button>
       <TextField fx:id="textBox_path_map" layoutX="427.0" layoutY="20.0" prefHeight="26.0" prefWidth="102.0" promptText="cesta k souboru...">
          <font>
             <Font name="Papyrus" size="10.0" />
          </font></TextField>
-      <Button fx:id="button_choose_map" layoutX="529.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: #D3D3D3;" text="vybrat" onAction="#button_choose_map_click">
+      <Button fx:id="button_choose_map" layoutX="529.0" layoutY="20.0" mnemonicParsing="false" onAction="#button_choose_map_click" style="-fx-background-color: #D3D3D3;" text="vybrat">
          <font>
             <Font name="Papyrus" size="10.0" />
          </font></Button>
-      <Button fx:id="button_map2" layoutX="429.0" layoutY="110.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="150.0" style="-fx-background-color: #D3D3D3;" text="MAP 2" textFill="RED" onAction="#button_map2_click">
+      <Button fx:id="button_map2" layoutX="429.0" layoutY="110.0" mnemonicParsing="false" onAction="#button_map2_click" prefHeight="32.0" prefWidth="150.0" style="-fx-background-color: #D3D3D3;" text="MAP 2" textFill="RED">
          <font>
             <Font name="Papyrus" size="12.0" />
          </font></Button>
-      <Button fx:id="button_map1" layoutX="429.0" layoutY="69.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="150.0" style="-fx-background-color: #D3D3D3;" text="MAP 1" textFill="RED" onAction="#button_map1_click">
+      <Button fx:id="button_map1" layoutX="429.0" layoutY="69.0" mnemonicParsing="false" onAction="#button_map1_click" prefHeight="32.0" prefWidth="150.0" style="-fx-background-color: #D3D3D3;" text="MAP 1" textFill="RED">
          <font>
             <Font name="Papyrus" size="12.0" />
          </font></Button>
-      <Button fx:id="button_map3" layoutX="430.0" layoutY="150.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="150.0" style="-fx-background-color: #D3D3D3;" text="MAP 3" textFill="RED" onAction="#button_map3_click">
+      <Button fx:id="button_map3" layoutX="430.0" layoutY="150.0" mnemonicParsing="false" onAction="#button_map3_click" prefHeight="32.0" prefWidth="150.0" style="-fx-background-color: #D3D3D3;" text="MAP 3" textFill="RED">
          <font>
             <Font name="Papyrus" size="12.0" />
          </font></Button>
-      <Button fx:id="button_play" layoutX="25.0" layoutY="146.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="119.0" style="-fx-background-color: #D3D3D3; -fx-border-color: #C0C0C0;" text="PLAY" onAction="#button_play_click">
+      <Button fx:id="button_play" layoutX="25.0" layoutY="146.0" mnemonicParsing="false" onAction="#button_view_record_click" prefHeight="72.0" prefWidth="119.0" style="-fx-background-color: #D3D3D3; -fx-border-color: #C0C0C0;" text="VIEW RECORD" textAlignment="CENTER" wrapText="true">
          <font>
-            <Font name="Papyrus" size="24.0" />
+            <Font name="Papyrus" size="14.0" />
          </font></Button>
-      <TextField fx:id="textBox_path_play" layoutX="25.0" layoutY="264.0" prefHeight="26.0" prefWidth="119.0" promptText="cesta k souboru...">
+      <TextField fx:id="textBox_path_view_record" layoutX="25.0" layoutY="264.0" prefHeight="26.0" prefWidth="119.0" promptText="cesta k souboru...">
          <font>
             <Font name="Papyrus" size="10.0" />
          </font></TextField>
-      <Button fx:id="button_choose_play" layoutX="144.0" layoutY="264.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="50.0" style="-fx-background-color: #D3D3D3; -fx-border-color: #C0C0C0;" text="vybrat" onAction="#button_choose_play_click">
+      <Button fx:id="button_choose_play" layoutX="144.0" layoutY="264.0" mnemonicParsing="false" onAction="#button_choose_view_record_click" prefHeight="26.0" prefWidth="50.0" style="-fx-background-color: #D3D3D3; -fx-border-color: #C0C0C0;" text="vybrat">
          <font>
             <Font name="Papyrus" size="10.0" />
          </font></Button>
-      <CheckBox fx:id="checkBox_reverse" layoutX="25.0" layoutY="233.0" mnemonicParsing="false" text="reverse" textAlignment="CENTER" onAction="#checkBox_reverse_click">
+      <CheckBox fx:id="checkBox_reverse" layoutX="25.0" layoutY="233.0" mnemonicParsing="false" onAction="#checkBox_reverse_click" text="reverse" textAlignment="CENTER">
          <font>
             <Font name="Nirmala UI" size="13.0" />
          </font></CheckBox>
