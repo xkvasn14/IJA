@@ -8,8 +8,6 @@ import java.io.*;
 
 public class MapReader {
 
-    SystemWindow systemWindow = new SystemWindow();
-
     public CommonMaze readMap(String path) throws IOException {
         File file = new File(path);
         if (!file.exists()) {
