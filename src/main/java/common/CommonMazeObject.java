@@ -18,4 +18,12 @@ public interface CommonMazeObject {
     default int getLives() {
         return 0;
     }
+
+    default int getSteps(){
+        return 0;
+    }
+
+    default int getVictory(){
+        return 0;
+    }
 }

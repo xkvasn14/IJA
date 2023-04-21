@@ -1,0 +1,25 @@
+* {
+    -fx-font-size: 18px;
+    -fx-font: Papyrus;
+}
+
+.dialog {
+    --fxbackground-color: coral;
+}
+
+.dialog *.header-panel {
+    --fxbackground-color: white;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+}
+
+.button {
+    -fxbackground-color: gold;
+    -fxbackground-radius: 30;
+    -fx-alignment: center;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: dropshadow(three-pass-box,orange, 10, 0.6, 0, 0);
+}
