@@ -21,20 +21,24 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import org.kordamp.bootstrapfx.BootstrapFX;
-import pathfinding.Pathfinding;
+import util.Logging;
 import util.MapReader;
 
 import java.io.IOException;
+import java.util.*;
 
+import static java.lang.Thread.sleep;
 
 
 public class HelloApplication extends Application {
 
     // Define the size of each field on the grid
     private static final int FIELD_SIZE = 30;
-    int rows=23+2;
-    int cols=23+2;
+    static int rows;
+    static int cols;
     private static CommonMaze maze;
+
+    static Logging logging;
     
     Image play = new Image("file:data/img/play.png");
     Image arrows = new Image("file:data/img/arrows.png");
@@ -120,6 +124,7 @@ public class HelloApplication extends Application {
                     case UP, W -> {
                         maze.pacman().move(CommonField.Direction.U);
                         try {
+                            logging.log();
                             start(primaryStage);
                         } catch (IOException e) {
                             throw new RuntimeException(e);
@@ -128,6 +133,7 @@ public class HelloApplication extends Application {
                     case DOWN, S -> {
                         maze.pacman().move(CommonField.Direction.D);
                         try {
+                            logging.log();
                             start(primaryStage);
                         } catch (IOException e) {
                             throw new RuntimeException(e);
@@ -136,6 +142,7 @@ public class HelloApplication extends Application {
                     case LEFT, A -> {
                         maze.pacman().move(CommonField.Direction.L);
                         try {
+                            logging.log();
                             start(primaryStage);
                         } catch (IOException e) {
                             throw new RuntimeException(e);
@@ -144,6 +151,7 @@ public class HelloApplication extends Application {
                     case RIGHT, D -> {
                         maze.pacman().move(CommonField.Direction.R);
                         try {
+                            logging.log();
                             start(primaryStage);
                         } catch (IOException e) {
                             throw new RuntimeException(e);
@@ -162,6 +170,9 @@ public class HelloApplication extends Application {
             System.out.println(colIndex + ":" + rowIndex);
 
             PathField currentField = (PathField) maze.pacman().getField();
+
+
+
 
            // Pathfinding path = new Pathfinding();
 
@@ -268,11 +279,22 @@ public class HelloApplication extends Application {
 
         try {
             MapReader mapReader = new MapReader();
-            maze = mapReader.readMap("data\\maps\\map3.txt");
+            String path = "data\\maps\\map2.txt";
+            maze = mapReader.readMap(path);
+            rows = maze.numRows();
+            cols = maze.numCols();
+            createNewFileLog(path);
+            //this.logging
+            //logging.createLog(path);
             launch();
         }
         catch (IOException e) {
             SystemWindow.error("Error", e.getMessage());
         }
+    }
+
+    public static void createNewFileLog(String path) throws IOException {
+        logging = new Logging(maze, path);
+        logging.createLog(path);
     }
 }
