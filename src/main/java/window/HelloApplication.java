@@ -279,7 +279,7 @@ public class HelloApplication extends Application {
 
         try {
             MapReader mapReader = new MapReader();
-            String path = "data\\maps\\map1.txt";
+            String path = "data\\maps\\map2.txt";
             maze = mapReader.readMap(path);
             rows = maze.numRows();
             cols = maze.numCols();

@@ -7,17 +7,14 @@ import game.*;
 
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.Key;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 public class Logging {
     CommonMaze maze;
-    PacmanObject pacman;
+    CommonMazeObject pacman;
     List<CommonMazeObject> ghosts;
     List<CommonMazeObject> keys;
     String path;
@@ -31,6 +28,7 @@ public class Logging {
         this.maze = maze;
         this.ghosts = maze.ghosts();
         this.keys = maze.keys();
+        this.pacman = maze.pacman();
         this.path = path;
     }
 
@@ -81,12 +79,12 @@ public class Logging {
         // saves the log to a file
         File f = new File(path);
         String file = f.getName();
-        File file1 = new File("data\\records\\" + file);
+        File file1 = new File("data\\records\\" + "record_" + file);
         FileWriter fr = new FileWriter(file1, true);
         fr.write("DELAY: " + log.getFrameDelay() + ";" +
                 "PACMAN: " + log.getPacmanPos()[0] + "," + log.getPacmanPos()[1] + ";" +
-                "GHOSTS: " + log.getGhostPos().get(0) + "," + log.getGhostPos().get(1) + ";" +
-                "KEYS: " + log.getKeyPos().get(0).get(0) + "," + log.getKeyPos().get(0).get(1) + "\n");
+                "GHOSTS: " + log.getGhostPos()  + ";" +
+                "KEYS: " + log.getKeyPos() + "\n");
         fr.close();
     }
 
@@ -94,7 +92,7 @@ public class Logging {
         // creates a new log file
         File f = new File(path);
         String file = f.getName();
-        File file1 = new File("data\\records\\" + file);
+        File file1 = new File("data\\records\\" + "record_" + file);
         String mapContent = Files.readAllLines(Paths.get(path)).toString().replaceAll(",","\n");
         FileWriter fw = new FileWriter(file1);
         fw.write(mapContent);
