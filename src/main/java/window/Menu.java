@@ -67,9 +67,12 @@ public class Menu extends Application {
     public void button_play_click(ActionEvent actionEvent) {
         // read from textBox_path_map
         // SystemWindow open info
-        SystemWindow.error("Error", "Error");
         String path = textBox_path_map.getText();
-
+        try {
+            Game.main(new String[]{path});
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void button_map1_click(ActionEvent actionEvent) {
