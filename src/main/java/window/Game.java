@@ -2,7 +2,6 @@ package window;
 
 import common.*;
 import game.*;
-import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
@@ -17,6 +16,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import org.kordamp.bootstrapfx.BootstrapFX;
 import util.Logging;
 import util.MapReader;
@@ -24,7 +24,7 @@ import util.MapReader;
 import java.io.IOException;
 import java.util.Random;
 
-public class Game extends Application {
+public class Game extends Window {
 
     // Define the size of each field on the grid
     private static final int FIELD_SIZE = 30;
@@ -38,26 +38,25 @@ public class Game extends Application {
     static Logging logging;
 
     Image play = new Image("file:data/img/play.png");
-    Image arrows = new Image("file:data/img/arrows.png");
-    Image steps = new Image("file:data/img/steps.png");
-    Image heart = new Image("file:data/img/heart.png");
-    Image wall = new Image("file:data/img/wall.png");
-    Image dirt = new Image("file:data/img/dirt.png");
-    Image pacman = new Image("file:data/img/pacman-pixel.png");
-    Image ghost = new Image("file:data/img/ghost-green.png");
-    Image key = new Image("file:data/img/key.png");
-    Image trapdoor = new Image("file:data/img/trapdoor.png");
+    static Image arrows = new Image("file:data/img/arrows.png");
+    static Image steps = new Image("file:data/img/steps.png");
+    static Image heart = new Image("file:data/img/heart.png");
+    static Image wall = new Image("file:data/img/wall.png");
+    static Image dirt = new Image("file:data/img/dirt.png");
+    static Image pacman = new Image("file:data/img/pacman-pixel.png");
+    static Image ghost = new Image("file:data/img/ghost-green.png");
+    static Image key = new Image("file:data/img/key.png");
+    static Image trapdoor = new Image("file:data/img/trapdoor.png");
 
 
-    @Override
-    public void start(Stage primaryStage) throws InterruptedException {
+    public static void start(Stage primaryStage) throws InterruptedException {
         Game.primaryStage = primaryStage;
         Game.scene = generateMap();
 
         moveGhosts();  // todo ak bude cas thread
 
         // TODO Event handlers-example
-        Game.scene.setOnKeyPressed(this::handleKeys);
+        Game.scene.setOnKeyPressed(Game::handleKeys);
 
 
         Game.scene.setOnMousePressed(event -> {
@@ -101,14 +100,14 @@ public class Game extends Application {
 
     }
 
-    public ImageView setImageView(Image img) {
+    public static ImageView setImageView(Image img) {
         ImageView image = new ImageView(img);
         image.setFitHeight(20);
         image.setFitWidth(20);
         return image;
     }
 
-    public void moveInCol(PathField currentField, int end) {
+    public static void moveInCol(PathField currentField, int end) {
         while (!(end == currentField.getCol())) {
             boolean left = false;
             boolean right = false;
@@ -126,7 +125,7 @@ public class Game extends Application {
         }
     }
 
-    public void moveInRow(PathField currentField, int end) {
+    public static void moveInRow(PathField currentField, int end) {
         while (!(end == currentField.getRow())) {
             boolean up = false;
             boolean down = false;
@@ -145,7 +144,7 @@ public class Game extends Application {
         }
     }
 
-    public Scene generateMap() {
+    public static Scene generateMap() {
         // Create a new GridPane
         GridPane gridPane = new GridPane();
 
@@ -192,7 +191,7 @@ public class Game extends Application {
         return new Scene(vBox);
     }
 
-    public MenuBar setMenuBar() {
+    public static MenuBar setMenuBar() {
 
         // Menu views
         ImageView arrowsView = setImageView(arrows);
@@ -222,7 +221,7 @@ public class Game extends Application {
     }
 
 
-    public void moveGhosts() throws InterruptedException {
+    public static void moveGhosts() throws InterruptedException {
         Random rand = new Random(System.currentTimeMillis());
 
         for(CommonMazeObject ghost : maze.ghosts()) {
@@ -242,7 +241,7 @@ public class Game extends Application {
     }
 
 
-    public void handleKeys(KeyEvent event) {
+    public static void handleKeys(KeyEvent event) {
 
         switch (event.getCode()) {
             case UP, W -> {
@@ -289,13 +288,17 @@ public class Game extends Application {
         gameEnd();
     }
 
-    public void gameEnd() {
+    public static void gameEnd() {
         if (maze.pacman().getVictory() == 1) {
             //todo stylesheet
             GameEnd.victory();
+            // close the window
+            primaryStage.close();
         }
         else if (maze.pacman().getVictory() == -1 || maze.pacman().getLives() <= 0) {
             GameEnd.gameOver();
+            // close the window
+            primaryStage.close();
         }
     }
 
@@ -305,15 +308,18 @@ public class Game extends Application {
 
         try {
             MapReader mapReader = new MapReader();
-            String path = "data\\maps\\map2.txt";
+            //String path = "data\\maps\\map2.txt";
+            String path = args[0];
             maze = mapReader.readMap(path);
             rows = maze.numRows();
             cols = maze.numCols();
             createNewFileLog(path);
-            launch();
+            start(new Stage());
         }
         catch (IOException e) {
             SystemWindow.error("Error", e.getMessage());
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
