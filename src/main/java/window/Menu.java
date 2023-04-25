@@ -10,9 +10,11 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import util.PlayRecord;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Menu extends Application {
 
@@ -38,6 +40,7 @@ public class Menu extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Menu.class.getResource("menu.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
+        //scene.getStylesheets().add(Objects.requireNonNull(Menu.class.getResource("file:style.css")).toString());
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -93,7 +96,8 @@ public class Menu extends Application {
         button_play_click(actionEvent);
     }
 
-    public void button_view_record_click(ActionEvent actionEvent) {
+    public void button_view_record_click(ActionEvent actionEvent) throws IOException {
         String path = textBox_path_view_record.getText();
+        PlayRecord.readRecord(path);
     }
 }
