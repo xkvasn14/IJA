@@ -24,6 +24,8 @@ import util.MapReader;
 import java.io.IOException;
 import java.util.Random;
 
+import static java.lang.Thread.sleep;
+
 public class Game extends Window {
 
     // Define the size of each field on the grid
@@ -36,20 +38,14 @@ public class Game extends Window {
     static Scene scene;
 
     static Logging logging;
+    static String[] args;
 
-    Image play = new Image("file:data/img/play.png");
-    static Image arrows = new Image("file:data/img/arrows.png");
-    static Image steps = new Image("file:data/img/steps.png");
-    static Image heart = new Image("file:data/img/heart.png");
-    static Image wall = new Image("file:data/img/wall.png");
-    static Image dirt = new Image("file:data/img/dirt.png");
-    static Image pacman = new Image("file:data/img/pacman-pixel.png");
-    static Image ghost = new Image("file:data/img/ghost-green.png");
-    static Image key = new Image("file:data/img/key.png");
-    static Image trapdoor = new Image("file:data/img/trapdoor.png");
+    static Image play, arrows, steps, heart, wall, dirt, pacman, ghost, key, trapdoor;
 
 
     public static void start(Stage primaryStage) throws InterruptedException {
+        InitImages();
+
         Game.primaryStage = primaryStage;
         Game.scene = generateMap();
 
@@ -73,19 +69,23 @@ public class Game extends Window {
             while (!(colIndex == currentField.getCol() && rowIndex == currentField.getRow())) {
 
                 moveInCol(currentField, colIndex);
-                moveInRow(currentField, rowIndex);
+                try {
+                    moveInRow(currentField, rowIndex);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
                 currentField = (PathField) maze.pacman().getField();
                 counter++;
 
                 if (counter == 20) {
                     break;
                 }
-
+/*
                 try {
                     start(Game.primaryStage);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
-                }
+                } */
             }
         });
 
@@ -98,6 +98,29 @@ public class Game extends Window {
         // Show the window
         Game.primaryStage.show();
 
+    }
+
+    public static void logAndDraw() {
+        try {
+            logging.log();
+            start(primaryStage);
+            //generateMap();
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void InitImages() {
+        play = new Image("file:data/img/play.png");
+        arrows = new Image("file:data/img/arrows.png");
+        steps = new Image("file:data/img/steps.png");
+        heart = new Image("file:data/img/heart.png");
+        wall = new Image("file:data/img/wall.png");
+        dirt = new Image("file:data/img/dirt.png");
+        pacman = new Image("file:data/img/pacman-pixel.png");
+        ghost = new Image("file:data/img/ghost-green.png");
+        key = new Image("file:data/img/key.png");
+        trapdoor = new Image("file:data/img/trapdoor.png");
     }
 
     public static ImageView setImageView(Image img) {
@@ -117,6 +140,8 @@ public class Game extends Window {
                 left = maze.pacman().move(CommonField.Direction.L);
             }
 
+           logAndDraw();
+
             currentField = (PathField) maze.pacman().getField();
 
             if (!right && !left) {
@@ -125,7 +150,7 @@ public class Game extends Window {
         }
     }
 
-    public static void moveInRow(PathField currentField, int end) {
+    public static void moveInRow(PathField currentField, int end) throws InterruptedException {
         while (!(end == currentField.getRow())) {
             boolean up = false;
             boolean down = false;
@@ -135,6 +160,10 @@ public class Game extends Window {
             } else if (end < currentField.getRow()) {
                 up = maze.pacman().move(CommonField.Direction.U);
             }
+
+            sleep(5000);
+
+            logAndDraw();
 
             currentField = (PathField) maze.pacman().getField();
 
@@ -215,7 +244,9 @@ public class Game extends Window {
 
         Menu steps = new Menu(Integer.toString(maze.pacman().getSteps()), stepsView);
         menuBar.getMenus().add(steps);
+
         menuBar.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+        menuBar.getStyleClass().setAll("split-menu-btn");
 
         return menuBar;
     }
@@ -246,43 +277,19 @@ public class Game extends Window {
         switch (event.getCode()) {
             case UP, W -> {
                 maze.pacman().move(CommonField.Direction.U);
-                try {
-                    logging.log();
-                    start(primaryStage);
-                    //generateMap();
-                } catch (IOException | InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+                logAndDraw();
             }
             case DOWN, S -> {
                 maze.pacman().move(CommonField.Direction.D);
-                try {
-                    logging.log();
-                    start(primaryStage);
-                    //generateMap();
-                } catch (IOException | InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+                logAndDraw();
             }
             case LEFT, A -> {
                 maze.pacman().move(CommonField.Direction.L);
-                try {
-                    logging.log();
-                    start(primaryStage);
-                    //generateMap();
-                } catch (IOException | InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+                logAndDraw();
             }
             case RIGHT, D -> {
                 maze.pacman().move(CommonField.Direction.R);
-                try {
-                    logging.log();
-                    start(primaryStage);
-                    //generateMap();
-                } catch (IOException | InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+                logAndDraw();
             }
         }
         gameEnd();
@@ -296,13 +303,22 @@ public class Game extends Window {
             primaryStage.close();
         }
         else if (maze.pacman().getVictory() == -1 || maze.pacman().getLives() <= 0) {
-            GameEnd.gameOver();
-            // close the window
-            primaryStage.close();
+            boolean restart = GameEnd.gameOver();
+            if (restart) {
+                // restart game
+                main(Game.args);
+            }
+            else {
+                // close the window
+                primaryStage.close();
+            }
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
+        //save args for restart
+        Game.args = args;
+
         // create a map
         MazeConfigure mazeConfigure = new MazeConfigure();
 
