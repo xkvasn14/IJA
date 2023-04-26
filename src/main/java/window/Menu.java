@@ -98,7 +98,9 @@ public class Menu extends Application {
 
     public void button_view_record_click(ActionEvent actionEvent) throws IOException {
         String path = textBox_path_view_record.getText();
+
         //PlayRecord.readRecord(path);
         RecordPlayer.main(new String[]{path});
+
     }
 }

@@ -1,5 +1,6 @@
 package util;
 
+
 import game.MazeConfigure;
 import javafx.stage.Stage;
 import window.SystemWindow;
@@ -68,12 +69,15 @@ public class PlayRecord {
         ArrayList<List<Integer>> keyPos = new ArrayList<List<Integer>>();
         ArrayList<Log> logs = new ArrayList<>();
 
+
+
         File file = new File(path);
         if (!file.exists()) {
             SystemWindow.error("Error", "File not found");
             throw new IOException("File not found"); //todo error window
         }
         BufferedReader br = new BufferedReader(new FileReader(file));
+
         String line, tmp;
         String[] split;
         while ((line = br.readLine()) != null) {
@@ -85,11 +89,13 @@ public class PlayRecord {
             String[] logData = line.split(";");
             frameDelay = Double.parseDouble(logData[0].replace("DELAY: ", ""));
 
+
             //pacman
             tmp = logData[1].replace("PACMAN: ", "");
             split = tmp.split(",");
             pacmanPos[0] = Integer.parseInt(split[0]);
             pacmanPos[1] = Integer.parseInt(split[1]);
+
 
             // ghosts
             tmp = logData[2].replace("GHOSTS: [", "");
@@ -153,5 +159,4 @@ public class PlayRecord {
 
 
 }
-
 

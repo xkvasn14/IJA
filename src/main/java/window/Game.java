@@ -161,8 +161,6 @@ public class Game extends Window {
                 up = maze.pacman().move(CommonField.Direction.U);
             }
 
-            //sleep(5000);
-
             logAndDraw();
 
             currentField = (PathField) maze.pacman().getField();
@@ -298,19 +296,23 @@ public class Game extends Window {
     public static void gameEnd() {
         if (maze.pacman().getVictory() == 1) {
             //todo stylesheet
+            primaryStage.close();
+            primaryStage = null;
             GameEnd.victory();
             // close the window
-            primaryStage.close();
         }
         else if (maze.pacman().getVictory() == -1 || maze.pacman().getLives() <= 0) {
+
+            primaryStage.close();
+            primaryStage = null;
             boolean restart = GameEnd.gameOver();
             if (restart) {
                 // restart game
-                main(Game.args);
+                //main(Game.args);
+                Game.main(args);
             }
             else {
                 // close the window
-                primaryStage.close();
             }
         }
     }
@@ -318,6 +320,9 @@ public class Game extends Window {
     public static void main(String[] args) {
         //save args for restart
         Game.args = args;
+
+        if(primaryStage != null)
+            return;
 
         // create a map
         MazeConfigure mazeConfigure = new MazeConfigure();
