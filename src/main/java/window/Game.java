@@ -161,7 +161,7 @@ public class Game extends Window {
                 up = maze.pacman().move(CommonField.Direction.U);
             }
 
-            sleep(5000);
+            //sleep(5000);
 
             logAndDraw();
 

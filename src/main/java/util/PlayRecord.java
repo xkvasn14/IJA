@@ -1,5 +1,7 @@
 package util;
 
+import game.MazeConfigure;
+import javafx.stage.Stage;
 import window.SystemWindow;
 
 import java.io.*;
@@ -7,8 +9,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
 public class PlayRecord {
-    public static void readRecord(String path) throws IOException {
+    public static String[] readRecord(String path) throws IOException {
         File file = new File(path);
         if (!file.exists()) {
             SystemWindow.error("Error", "File not found");
@@ -52,15 +55,18 @@ public class PlayRecord {
         br.close();
 
         //todo return paths to new files
-        parseLogFromFile(paths[1]);
+        //parseLogFromFile(paths[1]);
+        return paths;
     }
 
-    public static void parseLogFromFile(String path) throws IOException {
+    public static ArrayList<Log> parseLogFromFile(String path) throws IOException {
         //todo load path from readrecord
         //File file = new File("file:data/records/play1_record_map1.txt");
+        double frameDelay = 0.0;
         int[] pacmanPos = new int[2];
         ArrayList<List<Integer>> ghostPos = new ArrayList<List<Integer>>();
         ArrayList<List<Integer>> keyPos = new ArrayList<List<Integer>>();
+        ArrayList<Log> logs = new ArrayList<>();
 
         File file = new File(path);
         if (!file.exists()) {
@@ -68,12 +74,16 @@ public class PlayRecord {
             throw new IOException("File not found"); //todo error window
         }
         BufferedReader br = new BufferedReader(new FileReader(file));
-        String line, tmp, tmp2;
-        String[] split, split2;
+        String line, tmp;
+        String[] split;
         while ((line = br.readLine()) != null) {
+            if (line.equals("")) {
+                return logs;
+            } //todo skontrolovat
+
             //delay
             String[] logData = line.split(";");
-            double frameDelay = Double.parseDouble(logData[0].replace("DELAY: ", ""));
+            frameDelay = Double.parseDouble(logData[0].replace("DELAY: ", ""));
 
             //pacman
             tmp = logData[1].replace("PACMAN: ", "");
@@ -81,23 +91,67 @@ public class PlayRecord {
             pacmanPos[0] = Integer.parseInt(split[0]);
             pacmanPos[1] = Integer.parseInt(split[1]);
 
-            //todo ghosts
+            // ghosts
             tmp = logData[2].replace("GHOSTS: [", "");
             tmp = tmp.substring(0, tmp.length()-1);
-            split = tmp.split(", ");
+            ghostPos = strToD2Arr(tmp);
 
-            for (String s : split) {
-                tmp2 = s.substring(1, split[1].length() - 1);
-                split2 = tmp2.split(", ");
-                List<Integer> list = new ArrayList<Integer>();
-                for (int j = 0; j < split2.length; j++) {
-                    list.add(j);
-                }
-                ghostPos.add(list);
-            }
-            //ghostPos.set(0, Integer.parseInt(split[0]));
-            System.out.println(Arrays.toString(split));
+            // keys
+            tmp = logData[3].replace("KEYS: [", "");
+            tmp = tmp.substring(0, tmp.length()-1);
+            keyPos = strToD2Arr(tmp);
+
+            Log log = new Log(frameDelay, pacmanPos, ghostPos, keyPos);
+            logs.add(log);
         }
+        return logs;
     }
 
+    public static ArrayList<List<Integer>> strToD2Arr(String str) {
+        ArrayList<List<Integer>> result = new ArrayList<List<Integer>>();
+        boolean closed = false, afterComma = false;
+        boolean started = false;
+        StringBuilder sb = new StringBuilder();
+        String tmp;
+        List<Integer> list = new ArrayList<Integer>();
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == '[' && !closed) {
+                started = true;
+            }
+            else if (Character.isDigit(str.charAt(i)) && !afterComma) {
+                sb.append(str.charAt(i));
+            }
+            else if (str.charAt(i) == ',' && !afterComma && started) {
+                afterComma = true;
+                tmp = sb.toString();
+                list.add(Integer.parseInt(tmp));
+                sb.setLength(0);
+            }
+            else if (Character.isDigit(str.charAt(i)) && afterComma) {
+                sb.append(str.charAt(i));
+            }
+            else if (str.charAt(i) == ']') {
+                tmp = sb.toString();
+                list.add(Integer.parseInt(tmp));
+                sb.setLength(0);
+                afterComma = false;
+                started = false;
+                closed = true;
+            }
+            else if (closed) {
+                List<Integer> copy = new ArrayList<>(list);
+                result.add(copy);
+                list.clear();
+                closed = false;
+            }
+        }
+        result.add(list);
+        return result;
+    }
+
+
+
+
 }
+
+
