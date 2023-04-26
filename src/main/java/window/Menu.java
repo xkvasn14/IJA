@@ -91,13 +91,16 @@ public class Menu extends Application {
     }
 
     public void button_map3_click(ActionEvent actionEvent) {
-        File file = new File("data/map/map3.txt");
+        File file = new File("data\\map\\map3.txt");
         textBox_path_map.setText(file.getAbsolutePath());
         button_play_click(actionEvent);
     }
 
     public void button_view_record_click(ActionEvent actionEvent) throws IOException {
         String path = textBox_path_view_record.getText();
-        PlayRecord.readRecord(path);
+
+        //PlayRecord.readRecord(path);
+        RecordPlayer.main(new String[]{path});
+
     }
 }

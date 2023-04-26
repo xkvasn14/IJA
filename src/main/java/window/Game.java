@@ -161,8 +161,6 @@ public class Game extends Window {
                 up = maze.pacman().move(CommonField.Direction.U);
             }
 
-           // sleep(5000);
-
             logAndDraw();
 
             currentField = (PathField) maze.pacman().getField();
@@ -304,6 +302,7 @@ public class Game extends Window {
             // close the window
         }
         else if (maze.pacman().getVictory() == -1 || maze.pacman().getLives() <= 0) {
+
             primaryStage.close();
             primaryStage = null;
             boolean restart = GameEnd.gameOver();
@@ -321,6 +320,7 @@ public class Game extends Window {
     public static void main(String[] args) {
         //save args for restart
         Game.args = args;
+
         if(primaryStage != null)
             return;
 
