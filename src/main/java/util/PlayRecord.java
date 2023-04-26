@@ -64,7 +64,7 @@ public class PlayRecord {
         //todo load path from readrecord
         //File file = new File("file:data/records/play1_record_map1.txt");
         double frameDelay = 0.0;
-        int[] pacmanPos = new int[2];
+
         ArrayList<List<Integer>> ghostPos = new ArrayList<List<Integer>>();
         ArrayList<List<Integer>> keyPos = new ArrayList<List<Integer>>();
         ArrayList<Log> logs = new ArrayList<>();
@@ -93,6 +93,7 @@ public class PlayRecord {
             //pacman
             tmp = logData[1].replace("PACMAN: ", "");
             split = tmp.split(",");
+            int[] pacmanPos = new int[2];
             pacmanPos[0] = Integer.parseInt(split[0]);
             pacmanPos[1] = Integer.parseInt(split[1]);
 
