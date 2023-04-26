@@ -9,6 +9,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -25,22 +26,31 @@ import util.PlayRecord;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RecordPlayer extends Window {
     private static final int FIELD_SIZE = 30;
     static int rows, cols;
     private static CommonMaze maze;
     static ArrayList<Log> logs = new ArrayList<>();
-    //static Logging logging;
     static Stage primaryStage;
     static Scene scene;
-    static Image play, arrows, steps, heart, wall, dirt, pacman, ghost, key, trapdoor;
+    static Image play, arrows, wall, dirt, pacman, ghost, key, trapdoor;
 
-    public static void start(Stage primaryStage) {
+    static String path;
+
+    static int indexOfLog = 0;
+
+    static boolean checkBoxSelected;
+    static boolean isPlayingOnPlayPause;
+
+    public static void start(Stage primaryStage) throws IOException {
         InitImages();
 
         RecordPlayer.primaryStage = primaryStage;
         RecordPlayer.scene = generateMap();
+
+        RecordPlayer.scene.setOnKeyPressed(RecordPlayer::handleKeyPress);
 
         // Set the title of the window
         RecordPlayer.primaryStage.setTitle("Display Previous Game");
@@ -53,44 +63,100 @@ public class RecordPlayer extends Window {
 
     }
 
+    private static void handleKeyPress(KeyEvent keyEvent) {
+        System.out.println(indexOfLog);
+        if (isPlayingOnPlayPause) {
+            switch (keyEvent.getCode()) {
+                case SPACE:
+                    // Play or Pause
+                    break;
+            }
+        } else {
+            switch (keyEvent.getCode()) {
+                case LEFT:
+                    indexOfLog--;
+                    if (indexOfLog < 0)
+                        indexOfLog = 0;
+                    drawScene();
+                    break;
+                case RIGHT:
+                    indexOfLog++;
+                    if (indexOfLog >= logs.size())
+                        indexOfLog = logs.size() - 1;
+                    drawScene();
+                    break;
+            }
+        }
+    }
+
+    public static void drawScene() {
+        try {
+            start(primaryStage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static Scene generateMap() {
         // Create a new GridPane
         GridPane gridPane = new GridPane();
+
 
         // Loop through the 2D array of fields
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 // Create a new Rectangle to represent the field
                 Rectangle rect = new Rectangle(FIELD_SIZE, FIELD_SIZE);
-                //Circle circle = new Circle((double) FIELD_SIZE /2);
-                //Rectangle rect2 = new Rectangle(FIELD_SIZE, FIELD_SIZE);
+                Circle circle = new Circle((double) FIELD_SIZE / 2);
+                Rectangle rect2 = new Rectangle(FIELD_SIZE, FIELD_SIZE);
 
                 // Set the color of the rectangle based on the type of field
-                if (maze.getField(i,j) instanceof WallField) {
+                if (maze.getField(i, j) instanceof WallField) {
                     rect.setFill(Color.GREY);
                     rect.setFill(new ImagePattern(wall));
                     gridPane.add(rect, j, i);
-                } else if (maze.getField(i,j) instanceof PathField) {
+                } else if (maze.getField(i, j) instanceof PathField) {
                     rect.setFill(Color.WHITE);
                     rect.setFill(new ImagePattern(dirt));
                     gridPane.add(rect, j, i);
-                    /*if(maze.getField(i,j).get() instanceof PacmanObject){
+                }
+                if (maze.getField(i, j).get() instanceof TargetObject) {
+                    rect2.setFill(new ImagePattern(trapdoor));
+                    gridPane.add(rect2, j, i);
+                }
+                if (indexOfLog < 0) {
+                    if (maze.getField(i, j).get() instanceof PacmanObject) {
                         circle.setFill(new ImagePattern(pacman));
                         gridPane.add(circle, j, i);
-                    } else if(maze.getField(i,j).get() instanceof GhostObject){
+                    } else if (maze.getField(i, j).get() instanceof GhostObject) {
                         circle.setFill(new ImagePattern(ghost));
                         gridPane.add(circle, j, i);
-                    } else if(maze.getField(i,j).get() instanceof KeyObject){
+                    } else if (maze.getField(i, j).get() instanceof KeyObject) {
                         circle.setFill(new ImagePattern(key));
                         gridPane.add(circle, j, i);
-                    } else if(maze.getField(i,j).get() instanceof TargetObject){
-                        rect2.setFill(new ImagePattern(trapdoor));
-                        gridPane.add(rect2, j, i);
-                    }*/
+                    }
                 }
                 // Add the rectangle to the GridPane at the appropriate row and column
             }
         }
+
+        if (!(indexOfLog < 0)) {
+            for (List<Integer> positions : logs.get(indexOfLog).getGhostPos()) {
+                Circle circle = new Circle((double) FIELD_SIZE / 2);
+                circle.setFill(new ImagePattern(ghost));
+                gridPane.add(circle, positions.get(1), positions.get(0));
+            }
+            for (List<Integer> positions : logs.get(indexOfLog).getKeyPos()) {
+                Circle circle = new Circle((double) FIELD_SIZE / 2);
+                circle.setFill(new ImagePattern(key));
+                gridPane.add(circle, positions.get(1), positions.get(0));
+            }
+            int[] positions = logs.get(indexOfLog).getPacmanPos();
+            Circle circle = new Circle((double) FIELD_SIZE / 2);
+            circle.setFill(new ImagePattern(pacman));
+            gridPane.add(circle, positions[1], positions[0]);
+        }
+
 
         VBox vBox = new VBox(setMenuBar(), gridPane);
 
@@ -102,8 +168,6 @@ public class RecordPlayer extends Window {
     public static void InitImages() {
         play = new Image("file:data/img/play.png");
         arrows = new Image("file:data/img/arrows.png");
-        steps = new Image("file:data/img/steps.png");
-        heart = new Image("file:data/img/heart.png");
         wall = new Image("file:data/img/wall.png");
         dirt = new Image("file:data/img/dirt.png");
         pacman = new Image("file:data/img/pacman-pixel.png");
@@ -123,33 +187,12 @@ public class RecordPlayer extends Window {
 
         // Menu views
         ImageView arrowsView = setImageView(arrows);
-        ImageView keyView = setImageView(key);
-        ImageView heartView = setImageView(heart);
-        ImageView ghostView = setImageView(ghost);
-        ImageView stepsView = setImageView(steps);
 
         MenuBar menuBar = new MenuBar();
         MenuItem mouse = new MenuItem("Mouse");
         MenuItem arrows = new MenuItem("Arrows");
         javafx.scene.control.Menu controls = new javafx.scene.control.Menu("Player Controls", arrowsView, mouse, arrows);
-        //MenuButton controls = new MenuButton("Player Controls", arrowsView);
         menuBar.getMenus().add(controls);
-
-
-
-        //MenuButton menuButton = new MenuButton("Options", imageView, menuItem1, menuItem2, menuItem3);
-/*
-        javafx.scene.control.Menu keys = new javafx.scene.control.Menu(Integer.toString(maze.keys().size()), keyView);
-        menuBar.getMenus().add(keys);
-
-        javafx.scene.control.Menu ghost = new javafx.scene.control.Menu(Integer.toString(maze.ghosts().size()), ghostView);
-        menuBar.getMenus().add(ghost);
-
-        javafx.scene.control.Menu lives = new javafx.scene.control.Menu(Integer.toString(maze.pacman().getLives()), heartView);
-        menuBar.getMenus().add(lives);
-
-        javafx.scene.control.Menu steps = new Menu(Integer.toString(maze.pacman().getSteps()), stepsView);
-        menuBar.getMenus().add(steps); */
 
         menuBar.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
         menuBar.getStyleClass().setAll("split-menu-btn");
@@ -163,28 +206,27 @@ public class RecordPlayer extends Window {
             window.SystemWindow.error("Error", "File not found");
         }
 
+        path = paths[1];
+        logs = PlayRecord.parseLogFromFile(path);
+        checkBoxSelected = Boolean.parseBoolean(args[1]);
 
+        if(checkBoxSelected){
+            indexOfLog = logs.size() - 1;
+        }
+        else
+            indexOfLog = -1;
         // parse first file with map
         // create a map
         MazeConfigure mazeConfigure = new MazeConfigure();
         try {
             MapReader mapReader = new MapReader();
-            String path = paths[0];
-            maze = mapReader.readMap(path);
+            String path1 = paths[0];
+
+            maze = mapReader.readMap(path1);
             rows = maze.numRows();
             cols = maze.numCols();
             start(new Stage());
-        }
-        catch (IOException e) {
-            SystemWindow.error("Error", e.getMessage());
-        }
-
-
-        // parse second file with logs
-        try {
-            logs = PlayRecord.parseLogFromFile(paths[1]);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             SystemWindow.error("Error", e.getMessage());
         }
 

@@ -100,7 +100,7 @@ public class Menu extends Application {
         String path = textBox_path_view_record.getText();
 
         //PlayRecord.readRecord(path);
-        RecordPlayer.main(new String[]{path});
+        RecordPlayer.main(new String[]{path, checkBox_reverse.isSelected() ? "true" : "false"});
 
     }
 }
