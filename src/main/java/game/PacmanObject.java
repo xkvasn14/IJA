@@ -10,7 +10,6 @@ import common.CommonMazeObject;
  * Class for Pacman
  */
 public class PacmanObject implements CommonMazeObject {
-    //CommonField field;
     Field field;
     int lives;
     int steps;
@@ -18,20 +17,19 @@ public class PacmanObject implements CommonMazeObject {
 
     /**
      * Constructor
-     * @param field
+     * @param field current field of pacman
      */
     public PacmanObject(Field field) {
         field.put(this);
         this.field = field;
         this.lives = 3;
         this.steps = 0;
-        //this.victory = 0;
     }
 
     /**
      * Can Pacman move in the given direction?
-     * @param dir
-     * @return boolean
+     * @param dir direction
+     * @return false if not successful
      */
     @Override
     public boolean canMove(CommonField.Direction dir) {
@@ -40,8 +38,8 @@ public class PacmanObject implements CommonMazeObject {
 
     /**
      * Move Pacman in the given direction
-     * @param dir
-     * @return boolean
+     * @param dir direction
+     * @return false if not successful
      */
     @Override
     public boolean move(CommonField.Direction dir) {
@@ -76,8 +74,8 @@ public class PacmanObject implements CommonMazeObject {
     }
 
     /**
-     * Is Pacman on the given field?
-     * @return boolean
+     * Returns true if object is pacman
+     * @return boolean value
      */
     @Override
     public boolean isPacman() {
@@ -112,7 +110,7 @@ public class PacmanObject implements CommonMazeObject {
 
     /**
      * Get the victory status of Pacman
-     * @return int
+     * @return 0 if game is not won, 1 or -1 otherwise
      */
     public int getVictory() {
         return this.victory;

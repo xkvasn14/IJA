@@ -6,9 +6,7 @@ package game;
 import common.CommonMaze;
 import common.CommonMazeObject;
 import common.CommonField;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -26,12 +24,12 @@ public class MazeImplementation implements CommonMaze  {
 
     /**
      * Constructor
-     * @param rows
-     * @param cols
-     * @param fields
-     * @param ghosts
-     * @param keys
-     * @param pacman
+     * @param rows rows of maze
+     * @param cols columns of maze
+     * @param fields list of fields
+     * @param ghosts list of ghost
+     * @param keys list of keys
+     * @param pacman pacman object
      */
     public MazeImplementation(int rows, int cols, CommonField[][] fields, List<CommonMazeObject> ghosts, List<CommonMazeObject> keys, CommonMazeObject pacman) {
         this.fields = fields;
@@ -43,8 +41,8 @@ public class MazeImplementation implements CommonMaze  {
     }
 
     /**
-     * Set pacmann to the maze
-     * @param pacman
+     * Set pacman to the maze
+     * @param pacman given pacman
      */
     public void setPacman(CommonMazeObject pacman) {
         this.pacman = pacman;
@@ -52,8 +50,8 @@ public class MazeImplementation implements CommonMaze  {
 
     /**
      * Get the field
-     * @param row
-     * @param col
+     * @param row row
+     * @param col column
      * @return field
      */
     @Override
@@ -85,7 +83,7 @@ public class MazeImplementation implements CommonMaze  {
      */
     @Override
     public List<CommonMazeObject> ghosts() {
-        return new ArrayList<CommonMazeObject>(this.ghosts);
+        return new ArrayList<>(this.ghosts);
     }
 
     /**
@@ -98,18 +96,8 @@ public class MazeImplementation implements CommonMaze  {
     }
 
     /**
-     * Get the field
-     * @param field
-     * @param row
-     * @param col
-     */
-    public void setField(CommonField field, int row, int col) {
-        this.fields[row][col] = field;
-    }
-
-    /**
-     * Get the pacmann
-     * @return pacmann
+     * Get the pacman
+     * @return pacman
      */
     @Override
     public CommonMazeObject pacman() {

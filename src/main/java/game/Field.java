@@ -4,8 +4,6 @@
 package game;
 
 import common.*;
-import javafx.scene.effect.Light;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,22 +16,14 @@ public class Field extends AbstractObservableField implements CommonField {
     List<Observer> observers = new ArrayList<>();
 
     /**
-     * Next field in the given direction
-     * @param direction
+     * Returns next field in given direction
+     * @param direction direction
      */
     @Override
     public Field nextField(Direction direction) {
         return null;
     }
 
-    /**
-     * Asker if field is empty
-     * @return if field is empty
-     */
-    @Override
-    public boolean isEmpty() {
-        return false;
-    }
 
     /**
      * Getter for entity
@@ -45,9 +35,9 @@ public class Field extends AbstractObservableField implements CommonField {
     }
 
     /**
-     * Asker if field contains object
-     * @param commonMazeObject
-     * @return if field contains object
+     * Compares given object with the one on field
+     * @param commonMazeObject object
+     * @return true if objects are the same, false otherwise
      */
     @Override
     public boolean contains(CommonMazeObject commonMazeObject) {
@@ -56,7 +46,7 @@ public class Field extends AbstractObservableField implements CommonField {
 
     /**
      * Adding observer
-     * @param observer
+     * @param observer observer
      */
     @Override
     public void addObserver(Observer observer) {
@@ -65,7 +55,7 @@ public class Field extends AbstractObservableField implements CommonField {
 
     /**
      * Removing observer
-     * @param observer
+     * @param observer observer
      */
     @Override
     public void removeObserver(Observer observer) {
@@ -83,30 +73,24 @@ public class Field extends AbstractObservableField implements CommonField {
     }
 
     /**
-     * Putting object to field
-     * @param obj
-     * @return if object was put
+     * Puts object on field
+     * @param obj given object
      */
-    public boolean put(CommonMazeObject obj) {
+    public void put(CommonMazeObject obj) {
         this.entity.add(obj);
-        return true;
     }
 
     /**
      * Removing object from field
-     * @param obj
-     * @return if object was removed
+     * @param obj given object
      */
-    public boolean remove(CommonMazeObject obj) {
-        if(this.entity.contains(obj)){
-            this.entity.remove(obj);
-            return true;
-        }
-        return false;
+    public void remove(CommonMazeObject obj) {
+        this.entity.remove(obj);
     }
 
     /**
-     * Getter for maze
+     * Setter for maze
+     * @param maze current maze
      */
     public void setMaze(CommonMaze maze) {
         this.maze = maze;
@@ -119,9 +103,5 @@ public class Field extends AbstractObservableField implements CommonField {
     public CommonMaze getMaze() {
         return this.maze;
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 
 }

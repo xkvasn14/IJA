@@ -15,8 +15,8 @@ public class WallField extends Field implements CommonField {
 
     /**
      * Constructor
-     * @param row
-     * @param col
+     * @param row row
+     * @param col column
      */
     public WallField(int row, int col) {
         this.row = row;
@@ -25,7 +25,7 @@ public class WallField extends Field implements CommonField {
 
     /**
      * Compares two objects
-     * @param obj
+     * @param obj given object
      * @return boolean
      */
     @Override
@@ -44,16 +44,6 @@ public class WallField extends Field implements CommonField {
     }
 
     /**
-     * Returns if the field is empty
-     * @return boolean
-     */
-    @Override
-    public boolean isEmpty() {
-        return true;
-    }
-
-
-    /**
      * Gets the object on the field
      * @return CommonMazeObject
      */
@@ -64,7 +54,7 @@ public class WallField extends Field implements CommonField {
 
     /**
      * Gets the next field in the direction
-     * @param dirs
+     * @param dirs direction
      * @return Field
      */
     @Override
@@ -80,27 +70,27 @@ public class WallField extends Field implements CommonField {
 
     /**
      * Put an object on the field
-     * @param obj
-     * @return boolean
+     *
+     * @param obj given object
      */
     @Override
-    public boolean put(CommonMazeObject obj) {
+    public void put(CommonMazeObject obj) {
         throw new UnsupportedOperationException();
     }
 
     /**
      * Remove an object from the field
-     * @param obj
-     * @return
+     *
+     * @param obj given object
      */
     @Override
-    public boolean remove(CommonMazeObject obj) {
+    public void remove(CommonMazeObject obj) {
         throw new UnsupportedOperationException();
     }
 
     /**
      * Sets the maze
-     * @param maze
+     * @param maze current maze
      */
     @Override
     public void setMaze(CommonMaze maze) {

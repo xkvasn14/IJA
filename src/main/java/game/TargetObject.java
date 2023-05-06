@@ -15,7 +15,7 @@ public class TargetObject implements CommonMazeObject {
 
     /**
      * Constructor
-     * @param field
+     * @param field current field of target
      */
     public TargetObject(Field field) {
         field.put(this);
@@ -23,7 +23,7 @@ public class TargetObject implements CommonMazeObject {
     }
 
     /**
-     * Method for getting field
+     * Gets field on which object is on
      * @return field
      */
     @Override

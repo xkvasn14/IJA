@@ -4,9 +4,6 @@
 package game;
 
 import common.*;
-
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,8 +17,8 @@ public class PathField extends Field implements CommonField {
 
     /**
      * Constructor
-     * @param row
-     * @param col
+     * @param row row
+     * @param col column
      */
     public PathField(int row, int col) {
         this.row = row;
@@ -30,7 +27,7 @@ public class PathField extends Field implements CommonField {
 
     /**
      * Compares two objects
-     * @param obj
+     * @param obj given object
      * @return boolean
      */
     @Override
@@ -54,10 +51,7 @@ public class PathField extends Field implements CommonField {
      */
     @Override
     public boolean isEmpty() {
-        if(this.get() == null){
-            return true;
-        }
-        return false;
+        return this.get() == null;
     }
 
     /**
@@ -83,7 +77,7 @@ public class PathField extends Field implements CommonField {
 
     /**
      * Gets the next field
-     * @param dirs
+     * @param dirs direction
      * @return Field
      */
     @Override
@@ -106,32 +100,30 @@ public class PathField extends Field implements CommonField {
 
     /**
      * Put an object on the field
-     * @param obj
-     * @return boolean
+     *
+     * @param obj given object
      */
     @Override
-    public boolean put(CommonMazeObject obj) {
+    public void put(CommonMazeObject obj) {
         this.entity.add(obj);
-        return true;
     }
 
     /**
      * Remove an object from the field
-     * @param obj
-     * @return boolean
+     *
+     * @param obj given object
      */
     @Override
-    public boolean remove(CommonMazeObject obj) {
+    public void remove(CommonMazeObject obj) {
         if(this.entity.size() == 0){
-            return false;
+            return;
         }
         this.entity.remove(obj);
-        return true;
     }
 
     /**
      * Sets the maze
-     * @param maze
+     * @param maze current maze
      */
     @Override
     public void setMaze(CommonMaze maze) {
