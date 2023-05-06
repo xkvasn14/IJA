@@ -46,24 +46,6 @@ public class PathField extends Field implements CommonField {
     }
 
     /**
-     * Checks if the field is empty
-     * @return boolean
-     */
-    @Override
-    public boolean isEmpty() {
-        return this.get() == null;
-    }
-
-    /**
-     * Checks if the field is walkable
-     * @return boolean
-     */
-    @Override
-    public boolean canMove() {
-        return true;
-    }
-
-    /**
      * Gets the object on the field
      * @return CommonMazeObject
      */

@@ -89,6 +89,7 @@ public class Game extends Window {
                     break;
                 }
             }
+            gameEnd();
         });
 
         // Set the title of the window
