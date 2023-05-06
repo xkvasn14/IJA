@@ -52,7 +52,7 @@ public class Game extends Window {
     /***
      * Start method of game class
      * @param primaryStage primary stage
-     * @throws InterruptedException
+     * @throws InterruptedException if interrupted
      */
     public static void start(Stage primaryStage) throws InterruptedException {
         InitImages();
@@ -193,7 +193,7 @@ public class Game extends Window {
 
     /**
      * Generates map
-     * @return generated map
+     * @return scene with map
      */
     public static Scene generateMap() {
         // Create a new GridPane
@@ -348,7 +348,7 @@ public class Game extends Window {
 
     /**
      * Main method of game class
-     * @param args
+     * @param args arguments of program
      */
     public static void main(String[] args) {
         //save args for restart
@@ -380,7 +380,7 @@ public class Game extends Window {
     /**
      * Creates new log
      * @param path path of map base
-     * @throws IOException
+     * @throws IOException exception
      */
     public static void createNewFileLog(String path) throws IOException {
         logging = new Logging(maze, path);

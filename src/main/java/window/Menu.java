@@ -42,7 +42,7 @@ public class Menu extends Application {
 
     /**
      * Method for displaying menu
-     * @param args
+     * @param args arguments
      */
     public static void main(String[] args) {
         launch(args);
@@ -50,7 +50,7 @@ public class Menu extends Application {
 
     /**
      * Method for displaying menu
-     * @param primaryStage
+     * @param primaryStage stage
      */
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -66,14 +66,14 @@ public class Menu extends Application {
 
     /**
      * Method for displaying information window
-     * @param actionEvent
+     * @param actionEvent event
      */
     public void checkBox_reverse_click(ActionEvent actionEvent) {
     }
 
     /**
      * Method for displaying information window
-     * @param actionEvent
+     * @param actionEvent event
      */
     public void button_choose_view_record_click(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
@@ -86,7 +86,7 @@ public class Menu extends Application {
 
     /**
      * Method for displaying information window
-     * @param actionEvent
+     * @param actionEvent event
      */
     public void button_choose_map_click(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
@@ -99,7 +99,7 @@ public class Menu extends Application {
 
     /**
      * Method for displaying information window
-     * @param actionEvent
+     * @param actionEvent event
      */
     public void button_play_click(ActionEvent actionEvent) {
         // read from textBox_path_map
@@ -114,7 +114,7 @@ public class Menu extends Application {
 
     /**
      * Method for displaying information window
-     * @param actionEvent
+     * @param actionEvent event
      */
     public void button_map1_click(ActionEvent actionEvent) {
         File file = new File("data/map/map1.txt");
@@ -124,7 +124,7 @@ public class Menu extends Application {
 
     /**
      * Method for displaying information window
-     * @param actionEvent
+     * @param actionEvent event
      */
     public void button_map2_click(ActionEvent actionEvent) {
         File file = new File("data/map/map2.txt");
@@ -134,7 +134,7 @@ public class Menu extends Application {
 
     /**
      * Method for displaying information window
-     * @param actionEvent
+     * @param actionEvent event
      */
     public void button_map3_click(ActionEvent actionEvent) {
         File file = new File("data\\map\\map3.txt");
@@ -144,7 +144,7 @@ public class Menu extends Application {
 
     /**
      * Method for displaying information window
-     * @param actionEvent
+     * @param actionEvent event
      */
     public void button_view_record_click(ActionEvent actionEvent) throws IOException {
         String path = textBox_path_view_record.getText();

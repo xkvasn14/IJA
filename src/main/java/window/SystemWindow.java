@@ -16,7 +16,7 @@ public class SystemWindow extends Application {
 
     /**
      * Main method
-     * @param args
+     * @param args arguments of the program
      */
     public static void main(String[] args) {
 
@@ -25,7 +25,7 @@ public class SystemWindow extends Application {
 
     /**
      * Start method
-     * @param primaryStage
+     * @param primaryStage stage
      */
     @Override
     public void start(Stage primaryStage) {
@@ -33,8 +33,8 @@ public class SystemWindow extends Application {
 
     /**
      * Method for displaying information window
-     * @param header
-     * @param text
+     * @param header header of the window
+     * @param text text of the window
      */
     public static void info(String header, String text) {
         Platform.runLater(() -> {
@@ -50,8 +50,8 @@ public class SystemWindow extends Application {
 
     /**
      * Method for displaying warning window
-     * @param header
-     * @param text
+     * @param header header of the window
+     * @param text text of the window
      */
     public static void warning(String header, String text)
     {
@@ -68,8 +68,8 @@ public class SystemWindow extends Application {
 
     /**
      * Method for displaying error window
-     * @param header
-     * @param text
+     * @param header header of the window
+     * @param text text of the window
      */
     public static void error(String header, String text){
         Platform.runLater(() -> {
@@ -84,8 +84,8 @@ public class SystemWindow extends Application {
 
     /**
      * Method for displaying success window
-     * @param header
-     * @param text
+     * @param header header of the window
+     * @param text text of the window
      */
     public static void success(String header, String text){
         Platform.runLater(() -> {
