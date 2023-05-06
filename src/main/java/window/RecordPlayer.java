@@ -49,7 +49,7 @@ public class RecordPlayer extends Window {
 
     /**
      * Constructor
-     * @param primaryStage
+     * @param primaryStage Stage
      */
     public static void start(Stage primaryStage) throws IOException {
         InitImages();
@@ -74,7 +74,7 @@ public class RecordPlayer extends Window {
 
     /**
      * Constructor
-     * @param keyEvent
+     * @param keyEvent keyboard event
      */
     private static void handleKeyPress(KeyEvent keyEvent) {
         System.out.println(indexOfLog);
@@ -115,6 +115,7 @@ public class RecordPlayer extends Window {
 
     /**
      * Generate Map
+     * @return Scene of the map
      */
     public static Scene generateMap() {
         // Create a new GridPane
@@ -213,7 +214,6 @@ public class RecordPlayer extends Window {
 
     /**
      * Set the menu bar
-     *
      * @return The menu bar
      */
     public static MenuBar setMenuBar() {
@@ -235,8 +235,6 @@ public class RecordPlayer extends Window {
 
     /**
      * Set the menu bar
-     *
-     * @return The menu bar
      */
     public static void main(String[] args) throws IOException {
         String[] paths = PlayRecord.readRecord(args[0]); //todo func return paths to new files
