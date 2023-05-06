@@ -7,9 +7,10 @@ package util;
 import common.CommonField;
 import common.CommonMaze;
 import common.CommonMazeObject;
-import game.*;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -29,12 +30,12 @@ public class Logging {
     long prevTime = new Date().getTime();
     long currentTime = new Date().getTime();
 
-    MazeImplementation mazeImplementation;
+    //MazeImplementation mazeImplementation;
 
     /**
      * Constructor
-     * @param maze
-     * @param path
+     * @param maze maze
+     * @param path path to the file
      */
     public Logging(CommonMaze maze,String path) {
         this.maze = maze;
@@ -46,13 +47,14 @@ public class Logging {
 
     /**
      * Constructor
+     * @throws IOException if file cannot be created
      */
     public void log() throws IOException {
         // takes data from the maze and logs it to a file
-        int pacmanPos[] = new int[2];
-        ArrayList<List<Integer>> ghostPos = new ArrayList<List<Integer>>();
-        ArrayList<List<Integer>> keyPos = new ArrayList<List<Integer>>();
-        double frameDelay = 0.0;
+        int[] pacmanPos = new int[2];
+        ArrayList<List<Integer>> ghostPos = new ArrayList<>();
+        ArrayList<List<Integer>> keyPos = new ArrayList<>();
+        double frameDelay;
 
         for (int i = 0; i < this.maze.numRows(); i++) {
             for (int j = 0; j < this.maze.numCols(); j++) {
@@ -65,7 +67,7 @@ public class Logging {
                 for (CommonMazeObject ghost : this.ghosts) {
                     if (field.contains(ghost)) {
                         // log ghost position
-                        List<Integer> list = new ArrayList<Integer>();
+                        List<Integer> list = new ArrayList<>();
                         list.add(i);
                         list.add(j);
                         ghostPos.add(list);
@@ -74,7 +76,7 @@ public class Logging {
                 for (CommonMazeObject key : this.keys) {
                     if (field.contains(key)) {
                         // log key position
-                        List<Integer> list = new ArrayList<Integer>();
+                        List<Integer> list = new ArrayList<>();
                         list.add(i);
                         list.add(j);
                         keyPos.add(list);
@@ -91,9 +93,9 @@ public class Logging {
 
     /**
      * Saves the log to a file
-     * @param log
-     * @param path
-     * @throws IOException
+     * @param log log
+     * @param path path to the file
+     * @throws IOException if file cannot be created
      */
     public void saveLog(Log log,String path) throws IOException {
         // saves the log to a file
@@ -110,8 +112,8 @@ public class Logging {
 
     /**
      * Creates a new log file
-     * @param path
-     * @throws IOException
+     * @param path path to the file
+     * @throws IOException if file cannot be created
      */
     public void createLog(String path) throws IOException {
         // creates a new log file

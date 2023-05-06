@@ -5,9 +5,11 @@ package util;
 
 import common.CommonMaze;
 import game.MazeConfigure;
-import window.SystemWindow;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * Class for reading the map from a file
@@ -16,9 +18,9 @@ public class MapReader {
 
     /**
      * Reads the map from a file
-     * @param path
+     * @param path path to the file
      * @return CommonMaze
-     * @throws IOException
+     * @throws IOException if file cannot be read
      */
     public CommonMaze readMap(String path) throws IOException {
         File file = new File(path);
@@ -61,7 +63,6 @@ public class MapReader {
             throw new IOException("Invalid map: too few rows");
         }
         mazeConfigure.stopReading();
-        CommonMaze maze = mazeConfigure.createMaze();
-        return maze;
+        return mazeConfigure.createMaze();
     }
 }

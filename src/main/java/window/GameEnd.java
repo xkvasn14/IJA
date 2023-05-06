@@ -16,6 +16,9 @@ import org.kordamp.bootstrapfx.BootstrapFX;
  */
 public class GameEnd extends Window {
 
+    /**
+     * Dialog pane
+     */
     public static DialogPane dialog;
 
     /**

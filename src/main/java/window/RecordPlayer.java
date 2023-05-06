@@ -27,6 +27,7 @@ import util.PlayRecord;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Class for displaying previous game
@@ -50,6 +51,7 @@ public class RecordPlayer extends Window {
     /**
      * Constructor
      * @param primaryStage Stage
+     * @throws IOException if file cannot be created
      */
     public static void start(Stage primaryStage) throws IOException {
         InitImages();
@@ -79,25 +81,21 @@ public class RecordPlayer extends Window {
     private static void handleKeyPress(KeyEvent keyEvent) {
         System.out.println(indexOfLog);
         if (isPlayingOnPlayPause) {
-            switch (keyEvent.getCode()) {
-                case SPACE:
-                    // Play or Pause
-                    break;
-            }
+            Objects.requireNonNull(keyEvent.getCode());// Play or Pause
         } else {
             switch (keyEvent.getCode()) {
-                case LEFT:
+                case LEFT -> {
                     indexOfLog--;
                     if (indexOfLog < 0)
                         indexOfLog = 0;
                     drawScene();
-                    break;
-                case RIGHT:
+                }
+                case RIGHT -> {
                     indexOfLog++;
                     if (indexOfLog >= logs.size())
                         indexOfLog = logs.size() - 1;
                     drawScene();
-                    break;
+                }
             }
         }
     }
@@ -235,6 +233,8 @@ public class RecordPlayer extends Window {
 
     /**
      * Set the menu bar
+     * @param args The arguments
+     * @throws IOException If the file is not found
      */
     public static void main(String[] args) throws IOException {
         String[] paths = PlayRecord.readRecord(args[0]); //todo func return paths to new files
@@ -253,7 +253,7 @@ public class RecordPlayer extends Window {
             indexOfLog = -1;
         // parse first file with map
         // create a map
-        MazeConfigure mazeConfigure = new MazeConfigure();
+        //MazeConfigure mazeConfigure = new MazeConfigure();
         try {
             MapReader mapReader = new MapReader();
             String path1 = paths[0];

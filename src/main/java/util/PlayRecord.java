@@ -15,7 +15,9 @@ public class PlayRecord {
 
     /**
      * Constructor
-     * @param path
+     * @param path path to the file
+     * @throws IOException if file cannot be created
+     * @return String[] array of strings
      */
     public static String[] readRecord(String path) throws IOException {
         File file = new File(path);
@@ -64,13 +66,14 @@ public class PlayRecord {
 
     /**
      * Parses a string to a 2D array
-     * @param path
+     * @param path path to the file
      * @return 2D array
+     * @throws IOException if file cannot be read
      */
     public static ArrayList<Log> parseLogFromFile(String path) throws IOException {
         double frameDelay;
-        ArrayList<List<Integer>> ghostPos = new ArrayList<>();
-        ArrayList<List<Integer>> keyPos = new ArrayList<>();
+        ArrayList<List<Integer>> ghostPos;
+        ArrayList<List<Integer>> keyPos;
         ArrayList<Log> logs = new ArrayList<>();
 
         File file = new File(path);
@@ -115,11 +118,11 @@ public class PlayRecord {
 
     /**
      * Parses a string to a 2D array
-     * @param str
+     * @param str string to parse
      * @return 2D array
      */
     public static ArrayList<List<Integer>> strToD2Arr(String str) {
-        ArrayList<List<Integer>> result = new ArrayList<List<Integer>>();
+        ArrayList<List<Integer>> result = new ArrayList<>();
         boolean closed = false, afterComma = false;
         boolean started = false;
         StringBuilder sb = new StringBuilder();

@@ -20,10 +20,10 @@ public class Log {
 
     /**
      * Constructor
-     * @param frameDelay
-     * @param pacmanPos
-     * @param ghostPos
-     * @param keyPos
+     * @param frameDelay frame delay
+     * @param pacmanPos pacman position
+     * @param ghostPos ghost positions
+     * @param keyPos key positions
      */
     Log(double frameDelay, int[] pacmanPos, ArrayList<List<Integer>> ghostPos, ArrayList<List<Integer>> keyPos) {
         this.frameDelay = frameDelay;
