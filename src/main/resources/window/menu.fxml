@@ -4,52 +4,40 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="304.0" prefWidth="597.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="window.Menu">
-   <Button fx:id="button_go" layoutX="25.0" layoutY="23.0" mnemonicParsing="false" onAction="#button_play_click"
-           prefHeight="72.0" prefWidth="119.0" style="-fx-background-color: #D3D3D3; -fx-border-color: #C0C0C0;"
-           text="PLAY" textAlignment="CENTER">
+<AnchorPane prefHeight="304.0" prefWidth="597.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="window.Menu">
+   <Button fx:id="button_go" layoutX="32.0" layoutY="89.0" mnemonicParsing="false" onAction="#button_play_click" prefHeight="72.0" prefWidth="224.0" style="-fx-background-color: #D3D3D3; -fx-border-color: #C0C0C0;" text="PLAY" textAlignment="CENTER">
       <font>
-         <Font name="Papyrus" size="25.0"/>
+         <Font name="Papyrus" size="25.0" />
       </font>
    </Button>
-   <TextField fx:id="textBox_path_map" layoutX="427.0" layoutY="20.0" prefHeight="26.0" prefWidth="102.0"
-              promptText="cesta k souboru...">
+   <TextField fx:id="textBox_path_map" layoutX="32.0" layoutY="176.0" prefHeight="43.0" prefWidth="175.0" promptText="cesta k souboru mapy...">
       <font>
-         <Font name="Papyrus" size="10.0"/>
+         <Font name="Papyrus" size="14.0" />
       </font>
    </TextField>
-   <Button fx:id="button_choose_map" layoutX="529.0" layoutY="20.0" mnemonicParsing="false"
-           onAction="#button_choose_map_click" style="-fx-background-color: #D3D3D3;" text="vybrat">
+   <Button fx:id="button_choose_map" layoutX="207.0" layoutY="176.0" mnemonicParsing="false" onAction="#button_choose_map_click" prefHeight="43.0" prefWidth="50.0" style="-fx-background-color: #D3D3D3;" text="vybrat">
       <font>
-         <Font name="Papyrus" size="10.0"/>
+         <Font name="Papyrus" size="12.0" />
       </font>
    </Button>
-   <Button fx:id="button_play" layoutX="25.0" layoutY="146.0" mnemonicParsing="false"
-           onAction="#button_view_record_click" prefHeight="72.0" prefWidth="119.0"
-           style="-fx-background-color: #D3D3D3; -fx-border-color: #C0C0C0;" text="VIEW RECORD" textAlignment="CENTER"
-           wrapText="true">
+   <Button fx:id="button_play" layoutX="337.0" layoutY="89.0" mnemonicParsing="false" onAction="#button_view_record_click" prefHeight="72.0" prefWidth="224.0" style="-fx-background-color: #D3D3D3; -fx-border-color: #C0C0C0;" text="VIEW RECORD" textAlignment="CENTER" wrapText="true">
       <font>
-         <Font name="Papyrus" size="14.0"/>
+         <Font name="Papyrus" size="20.0" />
       </font>
    </Button>
-   <TextField fx:id="textBox_path_view_record" layoutX="25.0" layoutY="264.0" prefHeight="26.0" prefWidth="119.0"
-              promptText="cesta k souboru...">
+   <TextField fx:id="textBox_path_view_record" layoutX="337.0" layoutY="176.0" prefHeight="43.0" prefWidth="175.0" promptText="cesta k souboru nahrávky...">
       <font>
-         <Font name="Papyrus" size="10.0"/>
+         <Font name="Papyrus" size="13.0" />
       </font>
    </TextField>
-   <Button fx:id="button_choose_play" layoutX="144.0" layoutY="264.0" mnemonicParsing="false"
-           onAction="#button_choose_view_record_click" prefHeight="26.0" prefWidth="50.0"
-           style="-fx-background-color: #D3D3D3; -fx-border-color: #C0C0C0;" text="vybrat">
+   <Button fx:id="button_choose_play" layoutX="510.0" layoutY="176.0" mnemonicParsing="false" onAction="#button_choose_view_record_click" prefHeight="43.0" prefWidth="50.0" style="-fx-background-color: #D3D3D3;" text="vybrat">
       <font>
-         <Font name="Papyrus" size="10.0"/>
+         <Font name="Papyrus" size="12.0" />
       </font>
    </Button>
-   <CheckBox fx:id="checkBox_reverse" layoutX="25.0" layoutY="233.0" mnemonicParsing="false"
-             onAction="#checkBox_reverse_click" text="reverse" textAlignment="CENTER">
+   <CheckBox fx:id="checkBox_reverse" layoutX="337.0" layoutY="230.0" mnemonicParsing="false" onAction="#checkBox_reverse_click" text="reverse" textAlignment="CENTER">
       <font>
-         <Font name="Nirmala UI" size="13.0"/>
+         <Font name="Nirmala UI" size="13.0" />
       </font>
    </CheckBox>
 </AnchorPane>
