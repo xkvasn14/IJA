@@ -1,3 +1,8 @@
+/**
+ * Class representing game window
+ * @authors xjalak00, xkvasn14
+ */
+
 package window;
 
 import common.*;
@@ -20,12 +25,13 @@ import javafx.stage.Window;
 import org.kordamp.bootstrapfx.BootstrapFX;
 import util.Logging;
 import util.MapReader;
-
 import java.io.IOException;
 import java.util.Random;
 
-import static java.lang.Thread.sleep;
 
+/**
+ * Class representing game window
+ */
 public class Game extends Window {
 
     // Define the size of each field on the grid
@@ -43,27 +49,29 @@ public class Game extends Window {
     static Image play, arrows, steps, heart, wall, dirt, pacman, ghost, key, trapdoor;
 
 
+    /***
+     * Start method of game class
+     * @param primaryStage primary stage
+     * @throws InterruptedException
+     */
     public static void start(Stage primaryStage) throws InterruptedException {
         InitImages();
 
         Game.primaryStage = primaryStage;
-        Game.scene = generateMap();
+        scene = generateMap();
 
-        moveGhosts();  // todo ak bude cas thread
+        moveGhosts();
 
         // TODO Event handlers-example
-        Game.scene.setOnKeyPressed(Game::handleKeys);
+        scene.setOnKeyPressed(Game::handleKeys);
 
-
-        Game.scene.setOnMousePressed(event -> {
+        scene.setOnMousePressed(event -> {
             Node clickedNode = event.getPickResult().getIntersectedNode();
             Integer colIndex = GridPane.getColumnIndex(clickedNode);
             Integer rowIndex = GridPane.getRowIndex(clickedNode);
             System.out.println(colIndex + ":" + rowIndex);
 
             PathField currentField = (PathField) maze.pacman().getField();
-
-            // Pathfinding path = new Pathfinding();
 
             int counter = 0;
             while (!(colIndex == currentField.getCol() && rowIndex == currentField.getRow())) {
@@ -80,12 +88,6 @@ public class Game extends Window {
                 if (counter == 20) {
                     break;
                 }
-/*
-                try {
-                    start(Game.primaryStage);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                } */
             }
         });
 
@@ -93,23 +95,28 @@ public class Game extends Window {
         Game.primaryStage.setTitle("Map Display");
 
         // Set the scene of the window
-        Game.primaryStage.setScene(Game.scene);
+        Game.primaryStage.setScene(scene);
 
         // Show the window
         Game.primaryStage.show();
 
     }
 
+    /**
+     * Makes a new log and redraws scene
+     */
     public static void logAndDraw() {
         try {
             logging.log();
             start(primaryStage);
-            //generateMap();
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
 
+    /**
+     * Initializes images
+     */
     public static void InitImages() {
         play = new Image("file:data/img/play.png");
         arrows = new Image("file:data/img/arrows.png");
@@ -123,6 +130,11 @@ public class Game extends Window {
         trapdoor = new Image("file:data/img/trapdoor.png");
     }
 
+    /**
+     * Sets image icons in menu bar
+     * @param img menu icon
+     * @return resized image
+     */
     public static ImageView setImageView(Image img) {
         ImageView image = new ImageView(img);
         image.setFitHeight(20);
@@ -130,6 +142,11 @@ public class Game extends Window {
         return image;
     }
 
+    /**
+     * Move pacman in column
+     * @param currentField pacman is here
+     * @param end number of column where we want to move to
+     */
     public static void moveInCol(PathField currentField, int end) {
         while (!(end == currentField.getCol())) {
             boolean left = false;
@@ -138,18 +155,22 @@ public class Game extends Window {
                 right = maze.pacman().move(CommonField.Direction.R);
             } else if (end < currentField.getCol()) {
                 left = maze.pacman().move(CommonField.Direction.L);
-            }
+           }
 
            logAndDraw();
+           currentField = (PathField) maze.pacman().getField();
 
-            currentField = (PathField) maze.pacman().getField();
-
-            if (!right && !left) {
-                break;
-            }
+           if (!right && !left) {
+               break;
+           }
         }
     }
 
+    /**
+     * Move pacman in row
+     * @param currentField pacman is here
+     * @param end number of row where we want to move to
+     */
     public static void moveInRow(PathField currentField, int end) throws InterruptedException {
         while (!(end == currentField.getRow())) {
             boolean up = false;
@@ -162,7 +183,6 @@ public class Game extends Window {
             }
 
             logAndDraw();
-
             currentField = (PathField) maze.pacman().getField();
 
             if (!up && !down) {
@@ -171,6 +191,10 @@ public class Game extends Window {
         }
     }
 
+    /**
+     * Generates map
+     * @return generated map
+     */
     public static Scene generateMap() {
         // Create a new GridPane
         GridPane gridPane = new GridPane();
@@ -180,9 +204,8 @@ public class Game extends Window {
             for (int j = 0; j < cols; j++) {
                 // Create a new Rectangle to represent the field
                 Rectangle rect = new Rectangle(FIELD_SIZE, FIELD_SIZE);
-                Circle circle = new Circle(FIELD_SIZE/2);
+                Circle circle = new Circle((double) FIELD_SIZE /2);
                 Rectangle rect2 = new Rectangle(FIELD_SIZE, FIELD_SIZE);
-
 
                 // Set the color of the rectangle based on the type of field
                 if (maze.getField(i,j) instanceof WallField) {
@@ -214,10 +237,13 @@ public class Game extends Window {
         VBox vBox = new VBox(setMenuBar(), gridPane);
 
         // Create a new Scene with the GridPane as the root node
-
         return new Scene(vBox);
     }
 
+    /**
+     * Sets menu bar of the game window
+     * @return menu bar
+     */
     public static MenuBar setMenuBar() {
 
         // Menu views
@@ -250,7 +276,10 @@ public class Game extends Window {
     }
 
 
-    public static void moveGhosts() throws InterruptedException {
+    /**
+     * Moves ghosts on map
+     */
+    public static void moveGhosts() {
         Random rand = new Random(System.currentTimeMillis());
 
         for(CommonMazeObject ghost : maze.ghosts()) {
@@ -262,14 +291,14 @@ public class Game extends Window {
                 case 3 -> ghost.move(CommonField.Direction.L);
                 default -> ghost.move(CommonField.Direction.U);
             }
-            //Thread.sleep(time);
         }
-        // Thread.sleep(1000);
-        // start(primaryStage);
         generateMap();
     }
 
-
+    /**
+     * Event handler for key press
+     * @param event pressed key
+     */
     public static void handleKeys(KeyEvent event) {
 
         switch (event.getCode()) {
@@ -293,9 +322,12 @@ public class Game extends Window {
         gameEnd();
     }
 
+    /**
+     * Shows alert window after game ends
+     */
     public static void gameEnd() {
         if (maze.pacman().getVictory() == 1) {
-            //todo stylesheet
+
             primaryStage.close();
             primaryStage = null;
             GameEnd.victory();
@@ -308,15 +340,16 @@ public class Game extends Window {
             boolean restart = GameEnd.gameOver();
             if (restart) {
                 // restart game
-                //main(Game.args);
                 Game.main(args);
             }
-            else {
-                // close the window
-            }
+            // close the window
         }
     }
 
+    /**
+     * Main method of game class
+     * @param args
+     */
     public static void main(String[] args) {
         //save args for restart
         Game.args = args;
@@ -329,7 +362,6 @@ public class Game extends Window {
 
         try {
             MapReader mapReader = new MapReader();
-            //String path = "data\\maps\\map2.txt";
             String path = args[0];
             maze = mapReader.readMap(path);
             rows = maze.numRows();
@@ -344,6 +376,12 @@ public class Game extends Window {
         }
     }
 
+
+    /**
+     * Creates new log
+     * @param path path of map base
+     * @throws IOException
+     */
     public static void createNewFileLog(String path) throws IOException {
         logging = new Logging(maze, path);
         logging.createLog(path);

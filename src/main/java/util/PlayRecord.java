@@ -3,14 +3,9 @@
  */
 package util;
 
-
-import game.MazeConfigure;
-import javafx.stage.Stage;
 import window.SystemWindow;
-
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -26,7 +21,6 @@ public class PlayRecord {
         File file = new File(path);
         if (!file.exists()) {
             SystemWindow.error("Error", "File not found");
-            throw new IOException("File not found"); //todo error window
         }
         BufferedReader br = new BufferedReader(new FileReader(file));
         boolean mapRead = false;
@@ -65,8 +59,6 @@ public class PlayRecord {
         System.out.println("Done");
         br.close();
 
-        //todo return paths to new files
-        //parseLogFromFile(paths[1]);
         return paths;
     }
 
@@ -76,20 +68,14 @@ public class PlayRecord {
      * @return 2D array
      */
     public static ArrayList<Log> parseLogFromFile(String path) throws IOException {
-        //todo load path from readrecord
-        //File file = new File("file:data/records/play1_record_map1.txt");
-        double frameDelay = 0.0;
-
-        ArrayList<List<Integer>> ghostPos = new ArrayList<List<Integer>>();
-        ArrayList<List<Integer>> keyPos = new ArrayList<List<Integer>>();
+        double frameDelay;
+        ArrayList<List<Integer>> ghostPos = new ArrayList<>();
+        ArrayList<List<Integer>> keyPos = new ArrayList<>();
         ArrayList<Log> logs = new ArrayList<>();
-
-
 
         File file = new File(path);
         if (!file.exists()) {
             SystemWindow.error("Error", "File not found");
-            throw new IOException("File not found"); //todo error window
         }
         BufferedReader br = new BufferedReader(new FileReader(file));
 
@@ -98,12 +84,11 @@ public class PlayRecord {
         while ((line = br.readLine()) != null) {
             if (line.equals("")) {
                 return logs;
-            } //todo skontrolovat
+            }
 
             //delay
             String[] logData = line.split(";");
             frameDelay = Double.parseDouble(logData[0].replace("DELAY: ", ""));
-
 
             //pacman
             tmp = logData[1].replace("PACMAN: ", "");
@@ -111,7 +96,6 @@ public class PlayRecord {
             int[] pacmanPos = new int[2];
             pacmanPos[0] = Integer.parseInt(split[0]);
             pacmanPos[1] = Integer.parseInt(split[1]);
-
 
             // ghosts
             tmp = logData[2].replace("GHOSTS: [", "");
@@ -140,7 +124,7 @@ public class PlayRecord {
         boolean started = false;
         StringBuilder sb = new StringBuilder();
         String tmp;
-        List<Integer> list = new ArrayList<Integer>();
+        List<Integer> list = new ArrayList<>();
         for (int i = 0; i < str.length(); i++) {
             if (str.charAt(i) == '[' && !closed) {
                 started = true;

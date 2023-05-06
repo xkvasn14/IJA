@@ -52,14 +52,6 @@ public class WallField extends Field implements CommonField {
         return true;
     }
 
-    /**
-     * Returns if the field is walkable
-     * @return boolean
-     */
-    @Override
-    public boolean canMove() {
-        return false;
-    }
 
     /**
      * Gets the object on the field

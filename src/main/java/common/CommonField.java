@@ -1,17 +1,55 @@
+/**
+ * Interface representing common field
+ * @author xjalak00, xkvasn14
+ */
+
 package common;
 
+
+/**
+ * Interface representing common field
+ */
 public interface CommonField extends Observable {
+    /**
+     * Returns next field in given direction
+     * @param var1 direction
+     * @return next field
+     */
     CommonField nextField(Direction var1);
 
-    boolean isEmpty();
+    /**
+     * Returns if field is empty
+     * @return true if field is empty, false otherwise
+     */
+    default boolean isEmpty() {
+        return true;
+    }
 
+    /**
+     * Gets object laying on field
+     * @return object
+     */
     CommonMazeObject get();
 
-    boolean canMove();
+    /**
+     * Return boolean value depending on ability of object to move to field
+     * @return true if object can move here, false otherwise
+     */
+    default boolean canMove() {
+        return false;
+    }
 
+    /**
+     * Compares given object with the one on field
+     * @param var1 object
+     * @return true if objects are the same, false otherwise
+     */
     boolean contains(CommonMazeObject var1);
 
-    public static enum Direction {
+    /**
+     * Enum representing directions
+     */
+    enum Direction {
         L(0, -1),
         U(-1, 0),
         R(0, 1),
@@ -20,17 +58,15 @@ public interface CommonField extends Observable {
         private final int r;
         private final int c;
 
-        private Direction(int dr, int dc) {
+        /**
+         * Constructor
+         * @param dr row direction
+         * @param dc column direction
+         */
+        Direction(int dr, int dc) {
             this.r = dr;
             this.c = dc;
         }
 
-        public int deltaRow() {
-            return this.r;
-        }
-
-        public int deltaCol() {
-            return this.c;
-        }
     }
 }

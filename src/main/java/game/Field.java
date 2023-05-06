@@ -45,15 +45,6 @@ public class Field extends AbstractObservableField implements CommonField {
     }
 
     /**
-     * Asker if field can move
-     * @return if field can move
-     */
-    @Override
-    public boolean canMove() {
-        return false;
-    }
-
-    /**
      * Asker if field contains object
      * @param commonMazeObject
      * @return if field contains object

@@ -6,9 +6,7 @@ package window;
 import common.CommonMaze;
 import game.*;
 import javafx.scene.Scene;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,7 +21,6 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import org.kordamp.bootstrapfx.BootstrapFX;
 import util.Log;
-import util.Logging;
 import util.MapReader;
 import util.PlayRecord;
 
@@ -61,6 +58,8 @@ public class RecordPlayer extends Window {
         RecordPlayer.scene = generateMap();
 
         RecordPlayer.scene.setOnKeyPressed(RecordPlayer::handleKeyPress);
+
+        //logs = PlayRecord.parseLogFromFile();
 
         // Set the title of the window
         RecordPlayer.primaryStage.setTitle("Display Previous Game");
