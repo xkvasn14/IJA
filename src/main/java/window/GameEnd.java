@@ -12,14 +12,14 @@ import java.util.Optional;
 import org.kordamp.bootstrapfx.BootstrapFX;
 
 /**
- * Class representing game end windows
+ * Class for displaying game end windows
  */
 public class GameEnd extends Window {
 
     public static DialogPane dialog;
 
     /**
-     * Window shows after game wins
+     * Method for displaying victory window
      */
     public static void victory() {
         ImageView view = new ImageView("file:data/img/win2.png");
@@ -43,7 +43,8 @@ public class GameEnd extends Window {
     }
 
     /**
-     * Window shows after game over
+     * Method for displaying game over window
+     * @return true if restart game, false if return to main menu
      */
     public static boolean gameOver() {
         ImageView view = new ImageView("file:data/img/gameover.png");

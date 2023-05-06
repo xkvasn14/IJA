@@ -1,3 +1,7 @@
+/**
+ * Class for logging the game
+ * @authors: xjalak00, xkvasn14
+ */
 package util;
 
 import common.CommonField;
@@ -12,6 +16,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Class for logging the game
+ */
 public class Logging {
     CommonMaze maze;
     CommonMazeObject pacman;
@@ -24,6 +31,11 @@ public class Logging {
 
     MazeImplementation mazeImplementation;
 
+    /**
+     * Constructor
+     * @param maze
+     * @param path
+     */
     public Logging(CommonMaze maze,String path) {
         this.maze = maze;
         this.ghosts = maze.ghosts();
@@ -32,6 +44,9 @@ public class Logging {
         this.path = path;
     }
 
+    /**
+     * Constructor
+     */
     public void log() throws IOException {
         // takes data from the maze and logs it to a file
         int pacmanPos[] = new int[2];
@@ -74,7 +89,12 @@ public class Logging {
         saveLog(log, path);
     }
 
-
+    /**
+     * Saves the log to a file
+     * @param log
+     * @param path
+     * @throws IOException
+     */
     public void saveLog(Log log,String path) throws IOException {
         // saves the log to a file
         File f = new File(path);
@@ -88,6 +108,11 @@ public class Logging {
         fr.close();
     }
 
+    /**
+     * Creates a new log file
+     * @param path
+     * @throws IOException
+     */
     public void createLog(String path) throws IOException {
         // creates a new log file
         File f = new File(path);

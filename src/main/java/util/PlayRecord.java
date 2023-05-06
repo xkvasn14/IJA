@@ -1,3 +1,6 @@
+/**
+ * @authors: xjalak00, xkvasn14
+ */
 package util;
 
 import window.SystemWindow;
@@ -5,8 +8,15 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Class for storing log data
+ */
 public class PlayRecord {
+
+    /**
+     * Constructor
+     * @param path
+     */
     public static String[] readRecord(String path) throws IOException {
         File file = new File(path);
         if (!file.exists()) {
@@ -52,6 +62,11 @@ public class PlayRecord {
         return paths;
     }
 
+    /**
+     * Parses a string to a 2D array
+     * @param path
+     * @return 2D array
+     */
     public static ArrayList<Log> parseLogFromFile(String path) throws IOException {
         double frameDelay;
         ArrayList<List<Integer>> ghostPos = new ArrayList<>();
@@ -98,6 +113,11 @@ public class PlayRecord {
         return logs;
     }
 
+    /**
+     * Parses a string to a 2D array
+     * @param str
+     * @return 2D array
+     */
     public static ArrayList<List<Integer>> strToD2Arr(String str) {
         ArrayList<List<Integer>> result = new ArrayList<List<Integer>>();
         boolean closed = false, afterComma = false;
@@ -139,6 +159,4 @@ public class PlayRecord {
         result.add(list);
         return result;
     }
-
 }
-
