@@ -1,20 +1,41 @@
+/**
+ * @authors: xjalak00, xkvasn14
+ */
 package game;
 
 import common.CommonField;
 import common.CommonMazeObject;
 
+/**
+ * Class for ghost object
+ */
 public class GhostObject implements CommonMazeObject {
     Field field;
 
+    /**
+     * Put ghost into field
+     * @param field
+     */
     public GhostObject(Field field) {
         field.put(this);
         this.field = field;
     }
+
+    /**
+     * Asker if ghost can move
+     * @param dir
+     * @return if ghost can move
+     */
     @Override
     public boolean canMove(CommonField.Direction dir) {
         return this.field.nextField(dir).getClass() != WallField.class;
     }
 
+    /**
+     * Move ghost
+     * @param dir
+     * @return if ghost can move
+     */
     @Override
     public boolean move(Field.Direction dir) {
         if(this.canMove(dir)){
@@ -33,6 +54,10 @@ public class GhostObject implements CommonMazeObject {
         return false;
     }
 
+    /**
+     * Getter for field
+     * @return field
+     */
     @Override
     public CommonField getField() {
         return this.field;

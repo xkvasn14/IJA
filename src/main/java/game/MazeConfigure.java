@@ -1,3 +1,6 @@
+/**
+ * @authors: xjalak00, xkvasn14
+ */
 package game;
 
 import common.*;
@@ -5,6 +8,9 @@ import common.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class for configuring the maze
+ */
 public class MazeConfigure extends Object {
 
     boolean ok = true;
@@ -20,9 +26,17 @@ public class MazeConfigure extends Object {
     List<CommonMazeObject> ghosts = new ArrayList<>();
 
     List<CommonMazeObject> keys = new ArrayList<>();
+
+    /**
+     * Constructor
+     */
     public MazeConfigure() {
     }
 
+    /**
+     * Constructor
+     * @return maze
+     */
     public CommonMaze createMaze() {
         if(!ok)
             return null;
@@ -101,6 +115,10 @@ public class MazeConfigure extends Object {
         return maze;
     }
 
+    /**
+     * Method for stopping reading
+     * @return true
+     */
     public boolean stopReading() {
         // last wall
         for(int col = 0; col < cols + 2; col++){
@@ -109,6 +127,11 @@ public class MazeConfigure extends Object {
         return true;
     }
 
+    /**
+     * Method for processing line
+     * @param s
+     * @return true
+     */
     public boolean processLine(String s) {
         if(s.length() != cols) {
             this.ok = false;
@@ -123,6 +146,11 @@ public class MazeConfigure extends Object {
         return true;
     }
 
+    /**
+     * Method for starting reading
+     * @param row
+     * @param column
+     */
     public void startReading(int row, int column) {
         this.rows = row;
         this.cols = column;

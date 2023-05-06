@@ -1,3 +1,6 @@
+/**
+ * @authors: xjalak00, xkvasn14
+ */
 package util;
 
 import common.CommonMaze;
@@ -6,8 +9,17 @@ import window.SystemWindow;
 
 import java.io.*;
 
+/**
+ * Class for reading the map from a file
+ */
 public class MapReader {
 
+    /**
+     * Reads the map from a file
+     * @param path
+     * @return CommonMaze
+     * @throws IOException
+     */
     public CommonMaze readMap(String path) throws IOException {
         File file = new File(path);
         if (!file.exists()) {

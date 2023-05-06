@@ -1,3 +1,6 @@
+/**
+ * @authors: xjalak00, xkvasn14
+ */
 package window;
 
 import javafx.scene.control.*;
@@ -6,10 +9,16 @@ import javafx.stage.Window;
 import java.util.Optional;
 import org.kordamp.bootstrapfx.BootstrapFX;
 
+/**
+ * Class for displaying game end windows
+ */
 public class GameEnd extends Window {
 
     public static DialogPane dialog;
 
+    /**
+     * Method for displaying victory window
+     */
     public static void victory() {
         ImageView view = new ImageView("file:data/img/win2.png");
         view.setFitWidth(400);
@@ -37,6 +46,10 @@ public class GameEnd extends Window {
         } */
     }
 
+    /**
+     * Method for displaying game over window
+     * @return true if restart game, false if return to main menu
+     */
     public static boolean gameOver() {
         ImageView view = new ImageView("file:data/img/gameover.png");
         view.setFitWidth(400);
