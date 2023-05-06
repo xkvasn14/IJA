@@ -15,7 +15,7 @@ public class KeyObject implements CommonMazeObject {
 
     /**
      * Constructor
-     * @param field
+     * @param field current field of key
      */
     public KeyObject(Field field) {
         field.put(this);
@@ -23,7 +23,7 @@ public class KeyObject implements CommonMazeObject {
     }
 
     /**
-     * Getter for the field
+     * Gets field on which object is on
      * @return field
      */
     @Override

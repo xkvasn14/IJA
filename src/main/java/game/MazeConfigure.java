@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Class for configuring the maze
  */
-public class MazeConfigure extends Object {
+public class MazeConfigure {
 
     boolean ok = true;
     int rows;
@@ -28,13 +28,7 @@ public class MazeConfigure extends Object {
     List<CommonMazeObject> keys = new ArrayList<>();
 
     /**
-     * Constructor
-     */
-    public MazeConfigure() {
-    }
-
-    /**
-     * Constructor
+     * Creates maze
      * @return maze
      */
     public CommonMaze createMaze() {
@@ -51,51 +45,32 @@ public class MazeConfigure extends Object {
                 if(this.mazeString[row][col].equals("X")){
                     Field field = new WallField(row, col);
                     field.setMaze(maze);
-                    //maze.setField(field, row, col);
-                   // this.maze[row][col] = field;
                     fields[row][col] = field;
                 }
                 if (this.mazeString[row][col].equals(".")){
                     Field field = new PathField(row, col);
                     field.setMaze(maze);
-                    //maze.setField(field, row, col);
-                    //this.maze[row][col] = field;
                     fields[row][col] = field;
                 }
                 if(this.mazeString[row][col].equals("S")){
                     Field field = new PathField(row, col);
                     field.setMaze(maze);
-                    //maze.setField(field, row, col);
-                    //this.maze[row][col] = field;
                     fields[row][col] = field;
-                    // put pacman on start field
-                    //maze.getField(row, col).put(new PacmanObject(maze.getField(row, col)));
                     this.pacman = new PacmanObject(field);
-
                     this.maze.setPacman(this.pacman);
-                    //TODO: make sure field.put is not adding pacman to the field twice
-                    //field.put(pacman);
                 }
                 if(this.mazeString[row][col].equals("G")){
                     Field field = new PathField(row, col);
                     field.setMaze(maze);
-                    //maze.setField(field, row, col);
-                    //this.maze[row][col] = field;
                     fields[row][col] = field;
-                    // put ghost on field
                     GhostObject ghost = new GhostObject(field);
-                    //field.put(ghost);
                     ghosts.add(ghost);
-                    //maze.getField(row, col).put(new GhostObject(maze.getField(row, col)));
                 }
                 // Add KeyObject
                 if(this.mazeString[row][col].equals("K")){
                     Field field = new PathField(row, col);
                     field.setMaze(maze);
-                    //maze.setField(field, row, col);
-                    //this.maze[row][col] = field;
                     fields[row][col] = field;
-                    // put keys on field
                     KeyObject key = new KeyObject(field);
                     keys.add(key);
                 }
@@ -103,12 +78,8 @@ public class MazeConfigure extends Object {
                 if(this.mazeString[row][col].equals("T")){
                     Field field = new PathField(row, col);
                     field.setMaze(maze);
-                    //maze.setField(field, row, col);
-                    //this.maze[row][col] = field;
                     fields[row][col] = field;
-                    // put target on field
-                    TargetObject target = new TargetObject(field);
-                    //field.put(target);
+                    new TargetObject(field);
                 }
             }
         }
@@ -117,25 +88,22 @@ public class MazeConfigure extends Object {
 
     /**
      * Method for stopping reading
-     * @return true
      */
-    public boolean stopReading() {
+    public void stopReading() {
         // last wall
         for(int col = 0; col < cols + 2; col++){
             this.mazeString[rows+1][col] = "X";
         }
-        return true;
     }
 
     /**
      * Method for processing line
-     * @param s
-     * @return true
+     * @param s string
      */
-    public boolean processLine(String s) {
+    public void processLine(String s) {
         if(s.length() != cols) {
             this.ok = false;
-            return false;
+            return;
         }
         this.mazeString[readRow][0] = "X";
         for(int i = 0; i < cols; i++){
@@ -143,13 +111,12 @@ public class MazeConfigure extends Object {
         }
         this.mazeString[readRow][cols+1] = "X";
         readRow++;
-        return true;
     }
 
     /**
      * Method for starting reading
-     * @param row
-     * @param column
+     * @param row row
+     * @param column column
      */
     public void startReading(int row, int column) {
         this.rows = row;

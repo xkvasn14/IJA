@@ -13,8 +13,8 @@ public class GhostObject implements CommonMazeObject {
     Field field;
 
     /**
-     * Put ghost into field
-     * @param field
+     * Constructor
+     * @param field current field of ghost
      */
     public GhostObject(Field field) {
         field.put(this);
@@ -22,9 +22,9 @@ public class GhostObject implements CommonMazeObject {
     }
 
     /**
-     * Asker if ghost can move
-     * @param dir
-     * @return if ghost can move
+     * Returns true if ghost can move in given direction
+     * @param dir direction
+     * @return false if not successful
      */
     @Override
     public boolean canMove(CommonField.Direction dir) {
@@ -32,9 +32,9 @@ public class GhostObject implements CommonMazeObject {
     }
 
     /**
-     * Move ghost
-     * @param dir
-     * @return if ghost can move
+     * Move ghost on maze
+     * @param dir direction
+     * @return false if not successful
      */
     @Override
     public boolean move(Field.Direction dir) {
@@ -45,17 +45,16 @@ public class GhostObject implements CommonMazeObject {
             this.field.put(this);
             this.field.notifyObservers();
             CommonMazeObject nextObject = this.field.get();
-            if(nextObject instanceof PacmanObject){
+            if(nextObject instanceof PacmanObject) {
                 ((PacmanObject) nextObject).lives -= 1;
             }
-
             return true;
         }
         return false;
     }
 
     /**
-     * Getter for field
+     * Gets field on which object is on
      * @return field
      */
     @Override
