@@ -10,10 +10,9 @@ import java.util.List;
 /**
  * Class for Fields
  */
-public class Field extends AbstractObservableField implements CommonField {
+public class Field implements CommonField {
     CommonMaze maze;
     List<CommonMazeObject> entity = new ArrayList<>();
-    List<Observer> observers = new ArrayList<>();
 
     /**
      * Returns next field in given direction
@@ -44,33 +43,6 @@ public class Field extends AbstractObservableField implements CommonField {
         return this.entity.contains(commonMazeObject);
     }
 
-    /**
-     * Adding observer
-     * @param observer observer
-     */
-    @Override
-    public void addObserver(Observer observer) {
-        observers.add(observer);
-    }
-
-    /**
-     * Removing observer
-     * @param observer observer
-     */
-    @Override
-    public void removeObserver(Observer observer) {
-        observers.remove(observer);
-    }
-
-    /**
-     * Notifying observers
-     */
-    @Override
-    public void notifyObservers() {
-        for (Observer observer : observers) {
-            observer.update(this);
-        }
-    }
 
     /**
      * Puts object on field

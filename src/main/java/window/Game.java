@@ -170,6 +170,7 @@ public class Game extends Window {
      * Move pacman in row
      * @param currentField pacman is here
      * @param end number of row where we want to move to
+     * @throws InterruptedException if interrupted
      */
     public static void moveInRow(PathField currentField, int end) throws InterruptedException {
         while (!(end == currentField.getRow())) {
@@ -284,7 +285,7 @@ public class Game extends Window {
 
         for(CommonMazeObject ghost : maze.ghosts()) {
             int n = rand.nextInt(4);
-            int time = rand.nextInt(500);
+            //int time = rand.nextInt(500);
             switch (n) {
                 case 1 -> ghost.move(CommonField.Direction.D);
                 case 2 -> ghost.move(CommonField.Direction.R);
@@ -358,7 +359,7 @@ public class Game extends Window {
             return;
 
         // create a map
-        MazeConfigure mazeConfigure = new MazeConfigure();
+        //MazeConfigure mazeConfigure = new MazeConfigure();
 
         try {
             MapReader mapReader = new MapReader();
