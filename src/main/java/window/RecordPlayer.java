@@ -1,3 +1,6 @@
+/**
+ * @authors: xjalak00,xkvasn14
+ */
 package window;
 
 import common.CommonMaze;
@@ -28,6 +31,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class for displaying previous game
+ */
 public class RecordPlayer extends Window {
     private static final int FIELD_SIZE = 30;
     static int rows, cols;
@@ -44,6 +50,10 @@ public class RecordPlayer extends Window {
     static boolean checkBoxSelected;
     static boolean isPlayingOnPlayPause;
 
+    /**
+     * Constructor
+     * @param primaryStage
+     */
     public static void start(Stage primaryStage) throws IOException {
         InitImages();
 
@@ -63,6 +73,10 @@ public class RecordPlayer extends Window {
 
     }
 
+    /**
+     * Constructor
+     * @param keyEvent
+     */
     private static void handleKeyPress(KeyEvent keyEvent) {
         System.out.println(indexOfLog);
         if (isPlayingOnPlayPause) {
@@ -89,6 +103,9 @@ public class RecordPlayer extends Window {
         }
     }
 
+    /**
+     * Draw Scene
+     */
     public static void drawScene() {
         try {
             start(primaryStage);
@@ -97,6 +114,9 @@ public class RecordPlayer extends Window {
         }
     }
 
+    /**
+     * Generate Map
+     */
     public static Scene generateMap() {
         // Create a new GridPane
         GridPane gridPane = new GridPane();
@@ -165,6 +185,9 @@ public class RecordPlayer extends Window {
         return new Scene(vBox);
     }
 
+    /**
+     * Initialize images
+     */
     public static void InitImages() {
         play = new Image("file:data/img/play.png");
         arrows = new Image("file:data/img/arrows.png");
@@ -176,6 +199,12 @@ public class RecordPlayer extends Window {
         trapdoor = new Image("file:data/img/trapdoor.png");
     }
 
+    /**
+     * Set the image of an ImageView
+     *
+     * @param img The image to set
+     * @return The ImageView with the image set
+     */
     public static ImageView setImageView(Image img) {
         ImageView image = new ImageView(img);
         image.setFitHeight(20);
@@ -183,6 +212,11 @@ public class RecordPlayer extends Window {
         return image;
     }
 
+    /**
+     * Set the menu bar
+     *
+     * @return The menu bar
+     */
     public static MenuBar setMenuBar() {
 
         // Menu views
@@ -200,6 +234,11 @@ public class RecordPlayer extends Window {
         return menuBar;
     }
 
+    /**
+     * Set the menu bar
+     *
+     * @return The menu bar
+     */
     public static void main(String[] args) throws IOException {
         String[] paths = PlayRecord.readRecord(args[0]); //todo func return paths to new files
         if (paths.length != 2) {
