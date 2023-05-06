@@ -1,3 +1,8 @@
+/**
+ * Abstract class representing
+ * @author xjalak00, xkvasn14
+ */
+
 package common;
 
 import java.util.HashSet;

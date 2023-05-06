@@ -33,11 +33,6 @@ public class WallField extends Field implements CommonField {
     }
 
     @Override
-    public boolean canMove() {
-        return false;
-    }
-
-    @Override
     public CommonMazeObject get() {
         return null;
     }

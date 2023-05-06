@@ -1,5 +1,13 @@
+/**
+ * Interface representing observable
+ * @author xjalak00, xkvasn14
+ */
+
 package common;
 
+/**
+ * Interface representing observable
+ */
 public interface Observable {
     void addObserver(Observer var1);
 

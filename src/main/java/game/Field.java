@@ -27,11 +27,6 @@ public class Field extends AbstractObservableField implements CommonField {
     }
 
     @Override
-    public boolean canMove() {
-        return false;
-    }
-
-    @Override
     public boolean contains(CommonMazeObject commonMazeObject) {
         return this.entity.contains(commonMazeObject);
     }
